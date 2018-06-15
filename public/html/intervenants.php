@@ -11,8 +11,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="main.js"></script>
-    <title>Cody - Élèves</title>
+    <title>Cody - Intervenants</title>
   </head>
   <body>
-    <?php eleve();?>
+    <?php intervenant();?>
+    <?php intervenantRecherche();?>
   </body>

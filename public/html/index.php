@@ -1,8 +1,7 @@
 <?php
   session_start();
-
   include("../php/db_connect.inc.php");
-  include("../js/script.php");
+  include("../php/script.php");
 ?>
 
 <!DOCTYPE <!DOCTYPE html>
@@ -16,11 +15,9 @@
   </head>
   <body>
     <form method="post" action="index.php">
-      <tr>
-        <td><input type="email" name="email" placeholder="email"/></td>
-        <td><input type="password" name="password" placeholder="password"/></td>
-        <td><input type="submit" name="login"/></td>
-      </tr>
+      <input type="email" name="email" placeholder="email"/>
+      <input type="password" name="password" placeholder="password"/>
+      <input type="submit" name="login" value="Connection"/>
     </form>
 
     <!--<table>
