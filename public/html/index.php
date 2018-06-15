@@ -1,4 +1,6 @@
 <?php
+  session_start();
+
   include("../php/db_connect.inc.php");
   include("../js/script.php");
 ?>
