@@ -12,7 +12,7 @@ if(isset($_POST["login"])){
   if($data = $req->fetch()){ // Élève ?
     $_SESSION["ID"] = $data["ID_eleve"];
     $_SESSION["PRENOM"] = $data["prenom"];
-    header("Location:../html/eleves.php");
+    header("Location:./html/eleves.php");
   }
   else{
     $req = $db->prepare("SELECT * FROM Intervenants WHERE email = :email AND password = :password");
@@ -20,7 +20,7 @@ if(isset($_POST["login"])){
     if($data = $req->fetch()){ // Intervenant ?
       $_SESSION["ID"] = $data["ID_intervenant"];
       $_SESSION["PRENOM"] = $data["prenom"];
-      header("Location:../html/intervenants.php");
+      header("Location:./html/intervenants.php");
     }
     else{
       $req = $db->prepare("SELECT * FROM EquipePedagogique WHERE email = :email AND password = :password");
@@ -28,7 +28,7 @@ if(isset($_POST["login"])){
       if($data = $req->fetch()){ // Équipe pédagogique ?
         $_SESSION["ID"] = $data["ID_equipePedagogique"];
         $_SESSION["PRENOM"] = $data["prenom"];
-        header("Location:../html/equipePedagogique.php");
+        header("Location:./html/equipePedagogique.php");
       }
       else{ // Erreur
         echo "Erreur";
