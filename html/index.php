@@ -1,7 +1,7 @@
 <?php
   session_start();
-  include("./php/db_connect.inc.php");
-  include("./php/script.php");
+  include("../php/db_connect.inc.php");
+  include("../php/script.php");
 ?>
 
 <!DOCTYPE html>
@@ -10,18 +10,18 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
-	
+
 	<title>Cody, assistant virtuel Itescia</title>
 
-	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
-	
+	<link rel="shortcut icon" href="../assets/images/gt_favicon.png">
+
 	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/font-awesome.min.css">
 
 	<!-- Custom styles for our template -->
-	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen" >
-	<link rel="stylesheet" href="assets/css/main.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap-theme.css" media="screen" >
+	<link rel="stylesheet" href="../assets/css/main.css">
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
@@ -36,7 +36,7 @@
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="index.php"><img src="assets/images/logo.png" width="25%"  alt="Cody HTML5 template"></a>
+				<a class="navbar-brand" href="index.php"><img src="../assets/images/logo.png" width="25%"  alt="Cody HTML5 template"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
@@ -46,7 +46,7 @@
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
-	</div> 
+	</div>
 	<!-- /.navbar -->
 
 	<!-- Header -->
@@ -67,13 +67,13 @@
 		</p>
 	</div>
 	<!-- /Intro-->
-		
+
 	<!-- Highlights - jumbotron -->
 	<div class="jumbotron top-space">
 		<div class="container">
-			
+
 			<h3 class="text-center thin">A qui profite Cody ?</h3>
-			
+
 			<div class="row">
 				<div class="col-md-3 col-sm-6 highlight">
 					<div class="h-caption"><h4><i class="fa fa-pencil"></i>Les élèves</h4></div>
@@ -100,7 +100,7 @@
 					</div>
 				</div>
 			</div> <!-- /row  -->
-		
+
 		</div>
 	</div>
 	<!-- /Highlights -->
@@ -119,8 +119,8 @@
 			<div class="col-sm-6">
 				<h3>Nice header. Where do I find more images like that one?</h3>
 				<p>
-					Well, there are thousands of stock art galleries, but personally, 
-					I prefer to use photos from these sites: <a href="http://unsplash.com">Unsplash.com</a> 
+					Well, there are thousands of stock art galleries, but personally,
+					I prefer to use photos from these sites: <a href="http://unsplash.com">Unsplash.com</a>
 					and <a href="http://www.flickr.com/creativecommons/by-2.0/tags/">Flickr - Creative Commons</a></p>
 			</div>
 		</div> <!-- /row -->
@@ -129,8 +129,8 @@
 			<div class="col-sm-6">
 				<h3>Can I use it to build a site for my client?</h3>
 				<p>
-					Yes, you can. You may use this template for any purpose, just don't forget about the <a href="http://creativecommons.org/licenses/by/3.0/">license</a>, 
-					which says: "You must give appropriate credit", i.e. you must provide the name of the creator and a link to the original template in your work. 
+					Yes, you can. You may use this template for any purpose, just don't forget about the <a href="http://creativecommons.org/licenses/by/3.0/">license</a>,
+					which says: "You must give appropriate credit", i.e. you must provide the name of the creator and a link to the original template in your work.
 				</p>
 			</div>
 			<div class="col-sm-6">
@@ -142,7 +142,7 @@
 
 
 </div>	<!-- /container -->
-	
+
 	<!-- Social links. @TODO: replace by link/instructions in template -->
 	<section id="social">
 		<div class="container">
@@ -166,7 +166,7 @@
 		<div class="footer1">
 			<div class="container">
 				<div class="row">
-					
+
 					<div class="col-md-3 widget">
 						<h3 class="widget-title">Contact</h3>
 						<div class="widget-body">
@@ -180,7 +180,7 @@
 								Cergy-Pontoise</br>
 								95000</br>
 								France
-							</p>	
+							</p>
 						</div>
 					</div>
 					<div class="col-md-6 widget">
@@ -199,11 +199,11 @@
 		<div class="footer2">
 			<div class="container">
 				<div class="row">
-					
+
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="simplenav">
-								<a href="index.php">Home</a> | 
+								<a href="index.php">Home</a> |
 								<a href="about.php">En savoir plus sur Cody</a>
 							</p>
 						</div>
@@ -212,7 +212,7 @@
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="text-right">
-								Copyright &copy; 2018  Designed by The Avatars team 
+								Copyright &copy; 2018  Designed by The Avatars team
 							</p>
 						</div>
 					</div>
@@ -221,8 +221,8 @@
 			</div>
 		</div>
 
-	</footer>	
-		
+	</footer>
+
 
 
 
@@ -230,8 +230,8 @@
 	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	<script src="assets/js/headroom.min.js"></script>
-	<script src="assets/js/jQuery.headroom.min.js"></script>
-	<script src="assets/js/template.js"></script>
+	<script src="../assets/js/headroom.min.js"></script>
+	<script src="../assets/js/jQuery.headroom.min.js"></script>
+	<script src="../assets/js/template.js"></script>
 </body>
 </html>
