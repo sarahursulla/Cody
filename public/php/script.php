@@ -1,4 +1,6 @@
 <?php
+include(__DIR__ . "/utils/students.php");
+include(__DIR__ . "/views/table-students.php");
 
 //==============================================================================
 // Login
@@ -119,7 +121,7 @@ function eleve(){
 //==============================================================================
 function intervenant(){
   echo 'Bienvenue '.$_SESSION["PRENOM"];
-  echo '<form method="post" action="intervenants.php">';
+  echo '<form method="get" action="intervenants.php">';
   echo '<select name="id_matiere">';
   echo '<option selected="true" disabled="disabled">Matière ?</option>';
   $db = db_connect();
@@ -146,8 +148,10 @@ function intervenant(){
     }
   }
   echo '</select>';
-  echo '<input type="submit" name="chercherMatiere" value="Chercher"/>';
+  echo '<button type="submit">Chercher</button>';
   echo '</form>';
+
+  listing();
 }
 
 //==============================================================================
@@ -155,7 +159,7 @@ function intervenant(){
 //==============================================================================
 function equipePedagogique(){
   echo 'Bienvenue '.$_SESSION["PRENOM"];
-  echo '<form method="post" action="equipePedagogique.php">';
+  echo '<form method="get" action="equipePedagogique.php">';
   echo '<select name="id_matiere">';
   echo '<option selected="true" disabled="disabled">Matière ?</option>';
   $db = db_connect();
@@ -199,112 +203,97 @@ function equipePedagogique(){
   echo '</select>';
   echo '<input type="submit" name="chercherEleve" value="Chercher"/>';
   echo '</form>';
+
+  listing();
 }
 
-//==============================================================================
-// Affichages des notes par matières
-//==============================================================================
-if(isset($_POST["chercherMatiere"])){
-  $_SESSION["matiereTEMP"] = $_POST["id_matiere"];
-  $_SESSION["classeTEMP"] = $_POST["id_classe"];
-  $db = db_connect();
-  $req = $db->prepare("SELECT e.*, n.* FROM Eleves as e, Matieres as m, Notes as n
-                      WHERE m.ID_matiere = n.id_matiere AND e.ID_eleve = n.id_eleve AND m.ID_matiere = :id_matiere AND e.id_classe = :id_classe
-                      ORDER BY e.nom ASC");
-  $req->execute(array("id_matiere" => $_POST["id_matiere"],"id_classe" => $_POST["id_classe"]));
-  $data = $req->fetchAll();
-  echo '<table>';
-  echo '<thead><tr>
-        <th></th>
-        <th></th>
-        <th>Élève</th>
-        <th>Note</th>
-        <th>Note de groupe</th>
-        <th>Appréciation</th>
-        </tr></thead>';
-  echo '<tbody>';
-  foreach($data as $row){
-    echo '<form method="post">';
-    echo '<tr>';
-    echo '<td><input type="hidden" name="ID_eleve" value="'.$row["ID_eleve"].'"/></td>
-          <td><input type="hidden" name="id_matiere" value="'.$row["id_matiere"].'"/></td>
-          <td>'.$row["nom"].'</td>
-          <td><input type="number" name="note" step="0.1" value="'.$row["note"].'" /></td>
-          <td><input type="number" name="note_groupe" step="0.1" value="'.$row["note_groupe"].'" /></td>
-          <td><input type="text" name="appreciation" value="'.$row["appreciation"].'" /></td>';
-    echo '<td><input type="submit" name="changeNote" value="Modifier"/></td>';
-    echo '<td><input type="submit" name="supprimeNote" value="Supprimer"/></td>';
-    echo '</tr>';
-    echo '</form>';
-  }
-  echo '</tbody>';
-  echo '<form method="post" action="">';
-  echo '<select name="id_eleve">';
-  echo '<option selected="true" disabled="disabled">Élève ?</option>';
-  $req = $db->prepare("SELECT * FROM Eleves WHERE id_classe = :id_classe
-                      AND id_eleve NOT IN (SELECT id_eleve FROM Notes n WHERE id_matiere = :id_matiere)
-                      ORDER BY nom ASC");
-  $req->execute(array("id_classe" => $_POST["id_classe"],"id_matiere" => $_POST["id_matiere"]));
-  while($data = $req->fetch()){
-    echo '<option value="'.$data["ID_eleve"].'">'.$data["nom"].' '.$data["prenom"].'</option>';
-  }
-  echo '<input type="hidden" name="id_matiere" value="'.$_POST["id_matiere"].'"/>';
-  echo '</select>';
-  echo '<input type="submit" name="ajoutNote" value="Ajouter"/>';
-  echo '</form>';
-  $db = null;
-}
+function listing() {
+  //============================================================================
+  // Affichages des notes par matières
+  //============================================================================
+  if(isset($_GET["id_matiere"]) && isset($_GET["id_classe"])){
+    $id_matiere =  $_GET["id_matiere"];
+    $id_classe =  $_GET["id_classe"];
+    $_SESSION["matiereTEMP"] = $id_matiere;
+    $_SESSION["classeTEMP"] = $id_classe;
 
-//==============================================================================
-// Affichages des notes par élèves
-//==============================================================================
-if(isset($_POST["chercherEleve"])){
-  $_SESSION["eleveTEMP"] = $_POST["id_eleve"];
-  $db = db_connect();
-  $req = $db->query("SELECT * FROM Eleves");
-  $data = $req->fetch();
-  $req = $db->prepare("SELECT MAX(N.note) as noteMax, MIN(N.note) as noteMin, N.id_matiere as idMatiere, M.nom,
-                      (SELECT note FROM Notes WHERE id_eleve = :id_eleve AND id_matiere = idMatiere) as noteEleve,
-                      (SELECT appreciation FROM Notes WHERE id_eleve = :id_eleve AND id_matiere = idMatiere) as appreciation,
-                      (SELECT note_groupe FROM Notes WHERE id_eleve = :id_eleve AND id_matiere = idMatiere) as noteGroupe,
-                      (SELECT ID_eleve FROM Eleves WHERE id_eleve = :id_eleve) as ID_eleve
-                      FROM Notes N, Eleves E, Classes C, Matieres M
-                      WHERE N.id_eleve = E.ID_eleve
-                      AND E.id_classe = C.ID_classe
-                      AND C.ID_classe = :id_classe
-                      AND N.id_matiere = M.ID_matiere
-                      GROUP BY N.id_matiere");
-  $req->execute(array("id_eleve" => $_POST["id_eleve"],"id_classe" => $data["id_classe"]));
-  $data = $req->fetchAll();
-  echo '<table>';
-  echo '<thead><tr>
-        <th></th>
-        <th></th>
-        <th>Matière</th>
-        <th>Note</th>
-        <th>Note de groupe</th>
-        <th>Max</th>
-        <th>Min</th>
-        <th>Appréciation</th>
-        </tr></thead>';
-  echo '<tbody>';
-  foreach($data as $row){
-    echo '<form method="post">';
-    echo '<tr>';
-    echo '<td><input type="hidden" name="ID_eleve" value="'.$row["ID_eleve"].'"/></td>
-          <td><input type="hidden" name="id_matiere" value="'.$row["idMatiere"].'"/></td>
-          <td>'.$row["nom"].'</td>
-          <td><input type="number" name="note" step="0.1" value="'.$row["noteEleve"].'" /></td>
-          <td><input type="number" name="note_groupe" step="0.1" value="'.number_format($row["noteGroupe"],1).'" /></td>
-          <td>'.number_format($row["noteMax"],1).'</td>
-          <td>'.number_format($row["noteMin"],1).'</td>
-          <td><input type="text" name="appreciation" value="'.$row["appreciation"].'" /></td>';
-    echo '<td><input type="submit" name="changeNote" value="Modifier"/></td>';
-    echo '<td><input type="submit" name="supprimeNote" value="Supprimer"/></td><tr>';
-    echo '</tr>';
-    echo '</form>';
+    $db = db_connect();
+    $data = findStudents($db, $id_matiere, $id_classe);
+
+    tableStudents($data, $id_matiere, $id_classe);
+
+    $req = $db->prepare("SELECT * FROM Eleves WHERE id_classe = :id_classe
+                        AND id_eleve NOT IN (SELECT id_eleve FROM Notes n WHERE id_matiere = :id_matiere)
+                        ORDER BY nom ASC");
+    $req->execute(array("id_classe" => $id_classe,"id_matiere" => $id_matiere));
+    $data = $req->fetchAll();
+    $nbdata = count($data);
+    if($nbdata > 0){
+      echo '<form method="post" action="">';
+      echo '<select name="id_eleve">';
+      echo '<option selected="true" disabled="disabled">Élève ?</option>';
+      foreach($data as $row){
+        echo '<option value="'.$row["ID_eleve"].'">'.$row["nom"].' '.$row["prenom"].'</option>';
+      }
+      echo '<input type="hidden" name="id_matiere" value="'.$id_matiere.'"/>';
+      echo '</select>';
+      echo '<input type="submit" name="ajoutNote" value="Ajouter"/>';
+      echo '</form>';
+    }
+    $db = null;
   }
-  echo '</tbody>';
+
+  //============================================================================
+  // Affichages des notes par élèves
+  //============================================================================
+  if(isset($_POST["chercherEleve"])){
+    $_SESSION["eleveTEMP"] = $_POST["id_eleve"];
+    $db = db_connect();
+    $req = $db->query("SELECT * FROM Eleves");
+    $data = $req->fetch();
+    $req = $db->prepare("SELECT MAX(N.note) as noteMax, MIN(N.note) as noteMin, N.id_matiere as idMatiere, M.nom,
+                        (SELECT note FROM Notes WHERE id_eleve = :id_eleve AND id_matiere = idMatiere) as noteEleve,
+                        (SELECT appreciation FROM Notes WHERE id_eleve = :id_eleve AND id_matiere = idMatiere) as appreciation,
+                        (SELECT note_groupe FROM Notes WHERE id_eleve = :id_eleve AND id_matiere = idMatiere) as noteGroupe,
+                        (SELECT ID_eleve FROM Eleves WHERE id_eleve = :id_eleve) as ID_eleve
+                        FROM Notes N, Eleves E, Classes C, Matieres M
+                        WHERE N.id_eleve = E.ID_eleve
+                        AND E.id_classe = C.ID_classe
+                        AND C.ID_classe = :id_classe
+                        AND N.id_matiere = M.ID_matiere
+                        GROUP BY N.id_matiere");
+    $req->execute(array("id_eleve" => $_POST["id_eleve"],"id_classe" => $data["id_classe"]));
+    $data = $req->fetchAll();
+    echo '<table>';
+    echo '<thead><tr>
+          <th></th>
+          <th></th>
+          <th>Matière</th>
+          <th>Note</th>
+          <th>Note de groupe</th>
+          <th>Max</th>
+          <th>Min</th>
+          <th>Appréciation</th>
+          </tr></thead>';
+    echo '<tbody>';
+    foreach($data as $row){
+      echo '<form method="post">';
+      echo '<tr>';
+      echo '<td><input type="hidden" name="ID_eleve" value="'.$row["ID_eleve"].'"/></td>
+            <td><input type="hidden" name="id_matiere" value="'.$row["idMatiere"].'"/></td>
+            <td>'.$row["nom"].'</td>
+            <td><input type="number" name="note" step="0.1" value="'.$row["noteEleve"].'"/></td>
+            <td><input type="number" name="note_groupe" step="0.1" value="'.number_format($row["noteGroupe"],1).'"/></td>
+            <td>'.number_format($row["noteMax"],1).'</td>
+            <td>'.number_format($row["noteMin"],1).'</td>
+            <td><input type="text" name="appreciation" value="'.$row["appreciation"].'"/></td>';
+      echo '<td><input type="submit" name="changeNote" value="Modifier"/></td>';
+      echo '<td><input type="submit" name="supprimeNote" value="Supprimer"/></td><tr>';
+      echo '</tr>';
+      echo '</form>';
+    }
+    echo '</tbody>';
+  }
 }
 
 ?>

@@ -15,6 +15,6 @@
   </head>
   <body>
     <a href="../php/logout.php">Déconnexion</a>
-    <?php EquipePedagogique();?>
+    <?php equipePedagogique();?>
     <script src="../js/formulaire.js"></script>
   </body>
