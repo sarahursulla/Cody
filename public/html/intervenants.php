@@ -14,6 +14,6 @@
     <title>Cody - Intervenants</title>
   </head>
   <body>
+    <a href="../php/logout.php">Déconnexion</a>
     <?php intervenant();?>
-    <?php intervenantRecherche();?>
   </body>

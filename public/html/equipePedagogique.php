@@ -11,9 +11,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="main.js"></script>
-    <title>Cody - Élèves</title>
+    <title>Cody - Équipe pédagogique</title>
   </head>
   <body>
     <a href="../php/logout.php">Déconnexion</a>
-    <?php eleve();?>
+    <?php EquipePedagogique();?>
+    <script src="../js/formulaire.js"></script>
   </body>

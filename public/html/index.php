@@ -17,7 +17,7 @@
     <form method="post" action="index.php">
       <input type="email" name="email" placeholder="email"/>
       <input type="password" name="password" placeholder="password"/>
-      <input type="submit" name="login" value="Connection"/>
+      <input type="submit" name="login" value="Connexion"/>
     </form>
 
     <!--<table>
