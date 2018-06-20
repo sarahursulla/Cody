@@ -30,11 +30,11 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="index.php"><img src="../assets/images/logo.png" width="25%" alt="Cody HTML5 template"></a>
+				<a class="navbar-brand" href="../index.html"><img src="../assets/images/logo.png" width="25%" alt="Cody HTML5 template"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
-					<li><a href="index.php">Accueil</a></li>
+					<li><a href="../index.html">Accueil</a></li>
 					<li><a href="about.php">En savoir plus sur Cody</a></li>
 					<li class="active"><a class="btn" href="signin.php">CONNEXION</a></li>
 				</ul>
@@ -49,7 +49,7 @@
 	<div class="container">
 
 		<ol class="breadcrumb">
-			<li><a href="index.php">Accueil</a></li>
+			<li><a href="../index.html">Accueil</a></li>
 			<li class="active">Création de compte</li>
 		</ol>
 
@@ -159,7 +159,7 @@
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="simplenav">
-								<a href="index.php">Home</a> |
+								<a href="../index.html">Home</a> |
 								<a href="about.php">En savoir plus sur Cody</a>
 							</p>
 						</div>
