@@ -22,6 +22,9 @@ function getQueryParams() {
 // Login
 //==============================================================================
 if(isset($_POST["login"])){
+  if(empty($_POST["email"]) || empty($_POST["password"])){
+    echo "Veuillez rentrer vos identifiants";
+  }
   $db = db_connect();
   $req = $db->prepare("SELECT * FROM Eleves WHERE email = :email AND password = :password");
   $req->execute(array("email" => $_POST["email"],"password" => $_POST["password"]));

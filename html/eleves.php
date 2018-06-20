@@ -4,7 +4,7 @@
   include("../php/script.php");
 ?>
 
-<!DOCTYPE <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
   <head>
     <meta charset="utf-8" />
@@ -17,3 +17,4 @@
     <a href="../php/logout.php">Déconnexion</a>
     <?php eleve();?>
   </body>
+</html>

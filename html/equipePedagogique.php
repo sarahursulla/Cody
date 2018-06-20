@@ -17,3 +17,4 @@
     <a href="../php/logout.php">Déconnexion</a>
     <?php equipePedagogique();?>
   </body>
+</html>
