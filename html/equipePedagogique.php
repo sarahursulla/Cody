@@ -47,8 +47,10 @@
 	<!-- /.navbar -->
 
 	<!-- data table -->
-  <section id="head" class="secondary"></section>
-    <?php equipePedagogique();?>
+ 	<section id="head" class="secondary"></section>
+	<div id="mainContent">
+	<?php equipePedagogique();?>
+	</div>
 
 	<!-- footer -->
 	<footer id="footer" class="top-space">
