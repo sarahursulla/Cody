@@ -78,11 +78,11 @@
 							<form method="post">
 								<div class="top-margin">
 									<label>E-mail <span class="text-danger">*</span></label>
-									<input type="email" name="email" placeholder="email" class="form-control"/>
+									<input type="email" name="email" placeholder="email" class="form-control" required/>
 								</div>
 								<div class="top-margin">
 									<label>Mot de passe<span class="text-danger">*</span></label>
-									<input type="password" name="password" placeholder="password" class="form-control"/>
+									<input type="password" name="password" placeholder="password" class="form-control" required/>
 								</div>
 
 								<hr>
