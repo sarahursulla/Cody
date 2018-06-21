@@ -66,6 +66,8 @@
 						<div class="panel-body">
 							<h3 class="thin text-center">Création de compte</h3>
 							<p class="text-center text-muted">Veuillez entrer les informations requises afin de créer votre compte et avoir accès à votre espace personnel Itescia. </p>
+							<br>
+							<p id="warning"> Désolé, la création de compte n'est pas encore disponible... </p>
 							<hr>
 
 							<form>
@@ -101,7 +103,7 @@
 
 								<div class="row"></div>
 									<div class="col-lg-4 text-right">
-										<button class="btn btn-action" type="submit">Register</button>
+										<!--<button class="btn btn-action" type="submit">Register</button>-->
 									</div>
 								</div>
 							</form>
