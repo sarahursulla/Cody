@@ -28,7 +28,12 @@ if(isset($_POST["login"])){
       $_SESSION["ID"] = $data["ID_eleve"];
       $_SESSION["PRENOM"] = $data["prenom"];
       $_SESSION["MODE"] = 1;
-      header("Location:../html/eleves.php");
+      $first = first($data["prenom"], $data["password"]);
+      if($first == true){
+        header("Location:../html/changePassword.php");
+      }else{
+        header("Location:../html/eleves.php");
+      }
     }
     else{
       $req = $db->prepare("SELECT * FROM Intervenants WHERE email = :email AND password = :password");
@@ -55,6 +60,15 @@ if(isset($_POST["login"])){
     }
     $db = null;
   }
+}
+
+function first($name, $pass)
+{
+  $name = '@'.$name;
+    if($name == $pass){
+      return true;
+    }
+    return false;
 }
 
 //==============================================================================
@@ -100,7 +114,6 @@ function eleve(){
   $req->execute(array("id_eleve" => $_SESSION["ID"]));
   $data = $req->fetch();
   echo 'Bienvenue '.$_SESSION["PRENOM"].',<br><br>Votre moyenne générale est de '.number_format($data["moyenne"],1).'/20<br><br>';
-  changemdp();
   $req = $db->prepare("SELECT MAX(N.note) as noteMax, MIN(N.note) as noteMin, N.id_matiere as idMatiere, M.nom,
                       (SELECT note FROM Notes WHERE id_eleve = :id_eleve AND id_matiere = idMatiere) as noteEleve,
                       (SELECT appreciation FROM Notes WHERE id_eleve = :id_eleve AND id_matiere = idMatiere) as appreciation,
@@ -373,19 +386,11 @@ function listing() {
 //==============================================================================
 //
 //==============================================================================
-function changemdp(){
-  echo '<form method="post">';
-  echo '<input type="password" name="old" placeholder="Mot de passe actuel" required/>';
-  echo '<input type="password" name="new" placeholder="Nouveau mot de passe" required/>';
-  echo '<input type="submit" name="changermdp" value="Changer le mot de passe"/>';
-}
-
 if(isset($_POST["changermdp"])){
   switch ($_SESSION["MODE"]) {
     case 1:
       $table = "Eleves";
       $idtable = "ID_eleve";
-      echo "hey";
       break;
     case 2:
       $table = "Intervenants";
@@ -396,15 +401,25 @@ if(isset($_POST["changermdp"])){
       $idtable = "ID_membre";
       break;
   }
-  $db = db_connect();
-
-  /*if($_POST["old"] == ){
-
-    $req = $db->prepare("UPDATE :table SET password = :password WHERE :idtable = :idtable2");
-    $req->execute(array("table" => $table,"password" => $_POST["new"],"idtable" => $idtable,"idtable2" => $_SESSION["ID"]));
+  $default = '@'.$_SESSION["PRENOM"];
+  if($_POST["pass1"] == $_POST["pass2"] && $_POST["pass1"] != $default){
+    $db = db_connect();
+    $req = $db->prepare("UPDATE $table SET password = :password WHERE $idtable = :idtable2");
+    $req->execute(array("password" => $_POST["pass1"],"idtable2" => $_SESSION["ID"]));
     $db = null;
+    switch ($_SESSION["MODE"]) {
+      case 1:
+        header("Location:../html/eleves.php");
+        break;
+      case 2:
+        header("Location:../html/intervenants.php");
+        break;
+      case 3:
+        header("Location:../html/equipePedagogique.php");
+        break;
+    }
   }
-  echo "nope";*/
+  echo "nope";
 }
 
 ?>
