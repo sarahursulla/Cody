@@ -20,45 +20,65 @@ function getQueryParams() {
 if(isset($_POST["login"])){
   if(empty($_POST["email"]) || empty($_POST["password"])){
     echo "Veuillez rentrer vos identifiants";
-  }else{
+  }
+  else{
     $db = db_connect();
-    $req = $db->prepare("SELECT * FROM Eleves WHERE email = :email AND password = :password");
-    $req->execute(array("email" => $_POST["email"],"password" => $_POST["password"]));
+    $req = $db->prepare("SELECT * FROM Eleves WHERE email = :email");
+    $req->execute(array("email" => $_POST["email"]));
     if($data = $req->fetch()){ // Élève ?
-      $_SESSION["ID"] = $data["ID_eleve"];
-      $_SESSION["PRENOM"] = $data["prenom"];
-      $_SESSION["MODE"] = 1;
-      $first = first($data["prenom"], $data["password"]);
-      if($first == true){
-        header("Location:../html/changePassword.php");
-      }else{
-        header("Location:../html/eleves.php");
+      $isPasswordCorrect = password_verify($_POST['password'], $data['password']);
+      if($isPasswordCorrect){
+        $_SESSION["ID"] = $data["ID_eleve"];
+        $_SESSION["PRENOM"] = $data["prenom"];
+        $_SESSION["MODE"] = 1;
+        $first = first($data["prenom"], $_POST["password"]);
+        if($first == true){
+          header("Location:../html/changePassword.php");
+        }else{
+          header("Location:../html/eleves.php");
+        }
       }
     }
     else{
-      $req = $db->prepare("SELECT * FROM Intervenants WHERE email = :email AND password = :password");
-      $req->execute(array("email" => $_POST["email"],"password" => $_POST["password"]));
+      $req = $db->prepare("SELECT * FROM Intervenants WHERE email = :email");
+      $req->execute(array("email" => $_POST["email"]));
       if($data = $req->fetch()){ // Intervenant ?
-        $_SESSION["ID"] = $data["ID_intervenant"];
-        $_SESSION["PRENOM"] = $data["prenom"];
-        $_SESSION["MODE"] = 2;
-        header("Location:../html/intervenants.php");
+        $isPasswordCorrect = password_verify($_POST['password'], $data['password']);
+        if($isPasswordCorrect){
+          $_SESSION["ID"] = $data["ID_intervenant"];
+          $_SESSION["PRENOM"] = $data["prenom"];
+          $_SESSION["MODE"] = 2;
+          $first = first($data["prenom"], $_POST["password"]);
+          if($first == true){
+            header("Location:../html/changePassword.php");
+          }else{
+            header("Location:../html/intervenants.php");
+          }
+        }
       }
       else{
-        $req = $db->prepare("SELECT * FROM EquipePedagogique WHERE email = :email AND password = :password");
-        $req->execute(array("email" => $_POST["email"],"password" => $_POST["password"]));
+        $req = $db->prepare("SELECT * FROM EquipePedagogique WHERE email = :email");
+        $req->execute(array("email" => $_POST["email"]));
         if($data = $req->fetch()){ // Équipe pédagogique ?
-          $_SESSION["ID"] = $data["ID_equipePedagogique"];
-          $_SESSION["PRENOM"] = $data["prenom"];
-          $_SESSION["MODE"] = 3;
-          header("Location:../html/equipePedagogique.php");
-        }
-        else{ // Erreur
-          echo "Erreur";
+          $isPasswordCorrect = password_verify($_POST['password'], $data['password']);
+          if($isPasswordCorrect){
+            $_SESSION["ID"] = $data["ID_equipePedagogique"];
+            $_SESSION["PRENOM"] = $data["prenom"];
+            $_SESSION["MODE"] = 3;
+            $first = first($data["prenom"], $_POST["password"]);
+            if($first == true){
+              header("Location:../html/changePassword.php");
+            }else{
+              header("Location:../html/equipePedagogique.php");
+            }
+          }
+          else{ // Erreur
+            echo "Erreur";
+          }
         }
       }
+      $db = null;
     }
-    $db = null;
   }
 }
 
@@ -402,10 +422,11 @@ if(isset($_POST["changermdp"])){
       break;
   }
   $default = '@'.$_SESSION["PRENOM"];
+  $hache = password_hash($_POST["pass1"], PASSWORD_DEFAULT);
   if($_POST["pass1"] == $_POST["pass2"] && $_POST["pass1"] != $default){
     $db = db_connect();
     $req = $db->prepare("UPDATE $table SET password = :password WHERE $idtable = :idtable2");
-    $req->execute(array("password" => $_POST["pass1"],"idtable2" => $_SESSION["ID"]));
+    $req->execute(array("password" => $hache,"idtable2" => $_SESSION["ID"]));
     $db = null;
     switch ($_SESSION["MODE"]) {
       case 1:
@@ -419,7 +440,17 @@ if(isset($_POST["changermdp"])){
         break;
     }
   }
-  echo "nope";
+  echo 'nope';
 }
 
+/*function hache(){
+  $db = db_connect();
+  $req = $db->query("SELECT * FROM EquipePedagogique");
+  $data = $req->fetchAll();
+  foreach($data as $row){
+    $newpass = password_hash($row["password"], PASSWORD_DEFAULT);
+    $req = $db->prepare("UPDATE EquipePedagogique SET password = :password WHERE ID_membre = :id");
+    $req ->execute(array("password" => $newpass,"id" => $row["ID_membre"]));
+  }
+}*/
 ?>
