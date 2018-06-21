@@ -99,7 +99,7 @@ function eleve(){
   $req = $db->prepare("SELECT AVG(note) as moyenne FROM Notes WHERE id_eleve = :id_eleve");
   $req->execute(array("id_eleve" => $_SESSION["ID"]));
   $data = $req->fetch();
-  echo 'Bienvenue '.$_SESSION["PRENOM"].', votre moyenne générale est de '.number_format($data["moyenne"],1).'/20<br>';
+  echo 'Bienvenue '.$_SESSION["PRENOM"].',<br><br>Votre moyenne générale est de '.number_format($data["moyenne"],1).'/20<br><br>';
   changemdp();
   $req = $db->prepare("SELECT MAX(N.note) as noteMax, MIN(N.note) as noteMin, N.id_matiere as idMatiere, M.nom,
                       (SELECT note FROM Notes WHERE id_eleve = :id_eleve AND id_matiere = idMatiere) as noteEleve,
@@ -144,7 +144,7 @@ function intervenant(){
   $id_classe = @$_GET["id_classe"];
   $id_eleve = @$_GET["id_eleve"];
 
-  echo 'Bienvenue '.$_SESSION["PRENOM"];
+  echo 'Bienvenue '.$_SESSION["PRENOM"].',<br><br>Veuillez selectionner la matière et la classe.<br><br>';
   echo '<form method="get" action="intervenants.php' . getQueryParams() .'">';
   echo '<select name="id_matiere" required>';
   echo '<option selected="true" disabled="disabled">Matière ?</option>';
@@ -191,8 +191,9 @@ function equipePedagogique(){
   $id_classe = @$_GET["id_classe"];
   $id_eleve = @$_GET["id_eleve"];
 
-  echo 'Bienvenue '.$_SESSION["PRENOM"];
+  echo 'Bienvenue '.$_SESSION["PRENOM"].',<br><br>';
   echo '<form method="get" action="equipePedagogique.php' . getQueryParams() .  '">';
+  echo 'Recherchez par ';
   echo '<select name="id_matiere" required>';
   echo '<option selected="true" disabled="disabled">Matière ?</option>';
   $db = db_connect();
@@ -220,9 +221,11 @@ function equipePedagogique(){
     echo '<option ' . $selected . ' value="'.$data["ID_classe"].'">'.$data["nom"].'</option>';
   }
   echo '</select>';
-  echo '<button type="submit">Checher</button>';
+  echo '<button type="submit">Chercher</button>';
+  echo '<br>Ou';
   echo '</form>';
   echo '<form method="get" action="equipePedagogique.php' . getQueryParams() . '">';
+  echo 'Recherchez par ';
   echo '<select name="id_eleve" required>';
   echo '<option selected="true" disabled="disabled">Élève ?</option>';
   $db = db_connect();
@@ -395,13 +398,13 @@ if(isset($_POST["changermdp"])){
   }
   $db = db_connect();
 
-  if($_POST["old"] == ){
-    
+  /*if($_POST["old"] == ){
+
     $req = $db->prepare("UPDATE :table SET password = :password WHERE :idtable = :idtable2");
     $req->execute(array("table" => $table,"password" => $_POST["new"],"idtable" => $idtable,"idtable2" => $_SESSION["ID"]));
     $db = null;
   }
-  echo "nope";
+  echo "nope";*/
 }
 
 ?>
