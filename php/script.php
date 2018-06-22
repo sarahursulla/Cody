@@ -313,8 +313,6 @@ function listing() {
 
     echo '<table>';
     echo '<thead><tr>
-          <th>supprimer cette colonne!!!!!</th>
-          <th>supprimer cette colonne!!!!!</th>
           <th>Nom</th>
           <th>Prénom</th>
           <th>Note</th>
@@ -328,8 +326,8 @@ function listing() {
     foreach($data as $row){
       echo '<form method="post" action="">';
       echo '<tr>';
-      echo '<td><input type="hidden" name="ID_eleve" value="'.$row["ID_eleve"].'"/></td>
-            <td><input type="hidden" name="id_matiere" value="'.$row["id_matiere"].'"/></td>
+      echo '<input type="hidden" name="ID_eleve" value="'.$row["ID_eleve"].'"/>
+            <input type="hidden" name="id_matiere" value="'.$row["id_matiere"].'"/>
             <td>'.$row["nom"].'</td>
             <td>'.$row["prenom"].'</td>
             <td><input type="number" name="note" step="0.1" value="'.$row["note"].'"/></td>
@@ -386,25 +384,23 @@ function listing() {
                         GROUP BY N.id_matiere");
     $req->execute(array("id_eleve" => $id_eleve,"id_classe" => $data["id_classe"]));
     $data = $req->fetchAll();
-    echo '<table>';
-    echo '<thead><tr>
-          <th>supprimer cette colonne!!!!!</th>
-          <th>supprimer cette colonne!!!!!</th>
-          <th>Matière</th>
-          <th>Note</th>
-          <th>Note de groupe</th>
-          <th>Max</th>
-          <th>Min</th>
-          <th>Appréciation</th>
-          <th>Modifier</th>
-          <th>Supprimer</th>
-          </tr></thead>';
+    echo '<table>
+            <thead><tr>
+              <th>Matière</th>
+              <th>Note</th>
+              <th>Note de groupe</th>
+              <th>Max</th>
+              <th>Min</th>
+              <th>Appréciation</th>
+              <th>Modifier</th>
+              <th>Supprimer</th>
+            </tr></thead>';
     echo '<tbody>';
     foreach($data as $row){
       echo '<form method="post">';
       echo '<tr>';
-      echo '<td><input type="hidden" name="ID_eleve" value="'.$row["ID_eleve"].'"/></td>
-            <td><input type="hidden" name="id_matiere" value="'.$row["idMatiere"].'"/></td>
+      echo '<input type="hidden" name="ID_eleve" value="'.$row["ID_eleve"].'"/>
+            <input type="hidden" name="id_matiere" value="'.$row["idMatiere"].'"/>
             <td>'.$row["nom"].'</td>
             <td><input type="number" name="note" step="0.1" value="'.$row["noteEleve"].'"/></td>
             <td><input type="number" name="note_groupe" step="0.1" value="'.number_format($row["noteGroupe"],1).'"/></td>
