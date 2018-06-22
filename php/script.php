@@ -75,7 +75,7 @@ if(isset($_POST["login"])){
         }
         else{
           echo '<script type="text/javascript">
-                document.getElementById("error").innerHTML = "cest peesonne";
+                document.getElementById("error").innerText = "cest peesonne";
                 </script>';
         }
       }
@@ -179,8 +179,9 @@ function intervenant(){
   $id_classe = @$_GET["id_classe"];
   $id_eleve = @$_GET["id_eleve"];
 
-  echo '<p class="bienvenue"> Bienvenue '.$_SESSION["PRENOM"].',<br><br>Veuillez selectionner la matière et la classe</p>';
+  echo '<p class="bienvenue"> Bienvenue '.$_SESSION["PRENOM"].',</p>';
   echo '<form  class="questions" method="get" action="intervenants.php' . getQueryParams() .'">';
+  echo 'Veuillez sélectionner la matière et la classe';
   echo '<select  class="choix" name="id_matiere" required>';
   echo '<option selected="true" disabled="disabled">Matière </option>';
   $db = db_connect();
@@ -197,6 +198,7 @@ function intervenant(){
     echo '<option '. $selected .' value="'.$data["ID_matiere"].'">'.$data["nom"].'</option>';
   }
   echo '</select>';
+  echo 'et';
   echo '<select  class="choix" name="id_classe" required>';
   echo '<option selected="true" disabled="disabled">Classe </option>';
   $req = $db->query("SELECT * FROM Classes");
@@ -249,6 +251,7 @@ function equipePedagogique(){
 
   }
   echo '</select>';
+  echo 'et';
    //iciiiiiiiii
   echo '<select class="choix" name="id_classe" required>';
   echo '<option selected="true" disabled="disabled">Classe</option>';
@@ -304,6 +307,26 @@ function listing() {
     // $_SESSION["classeTEMP"] = $id_classe;
 
     $db = db_connect();
+    $req = $db->prepare("SELECT * FROM Eleves WHERE id_classe = :id_classe
+                        AND id_eleve NOT IN (SELECT id_eleve FROM Notes n WHERE id_matiere = :id_matiere)
+                        ORDER BY nom ASC");
+    $req->execute(array("id_classe" => $id_classe,"id_matiere" => $id_matiere));
+    $data = $req->fetchAll();
+    $nbdata = count($data);
+    if($nbdata > 0){
+      echo '<br><br><br><form class="questions" method="post" action="">';
+      echo 'Ajouter une note à un élève manquant';
+      echo '<select class="choix" name="id_eleve" required>';
+      echo '<option selected="true" disabled="disabled">Élève</option>';
+      foreach($data as $row){
+        echo '<option value="'.$row["ID_eleve"].'">'.$row["nom"].' '.$row["prenom"].'</option>';
+      }
+      echo '<input type="hidden" name="id_matiere" value="'.$id_matiere.'"/>';
+      echo '</select>';
+      echo '<input class="chercher" type="submit" name="ajoutNote" value="Ajouter"/>';
+      echo '</form>';
+    }
+
     $req = $db->prepare("SELECT e.*, n.* FROM Eleves as e, Matieres as m, Notes as n
                         WHERE m.ID_matiere = n.id_matiere AND e.ID_eleve = n.id_eleve AND m.ID_matiere = :id_matiere AND e.id_classe = :id_classe
                         ORDER BY e.nom ASC");
@@ -317,8 +340,8 @@ function listing() {
           <th>Note</th>
           <th>Note de groupe</th>
           <th>Appréciation</th>
-          <th>Modifier</th>
-          <th>Supprimer</th>
+          <th>Enregistrer les modifications</th>
+          <th>Supprimer les notes</th>
           </tr>
           </thead>';
     echo '<tbody>';
@@ -340,24 +363,7 @@ function listing() {
     echo '</tbody>';
     echo '</table>';
 
-    $req = $db->prepare("SELECT * FROM Eleves WHERE id_classe = :id_classe
-                        AND id_eleve NOT IN (SELECT id_eleve FROM Notes n WHERE id_matiere = :id_matiere)
-                        ORDER BY nom ASC");
-    $req->execute(array("id_classe" => $id_classe,"id_matiere" => $id_matiere));
-    $data = $req->fetchAll();
-    $nbdata = count($data);
-    if($nbdata > 0){
-      echo '<form method="post" action="">';
-      echo '<select name="id_eleve" required>';
-      echo '<option selected="true" disabled="disabled">Élève ?</option>';
-      foreach($data as $row){
-        echo '<option value="'.$row["ID_eleve"].'">'.$row["nom"].' '.$row["prenom"].'</option>';
-      }
-      echo '<input type="hidden" name="id_matiere" value="'.$id_matiere.'"/>';
-      echo '</select>';
-      echo '<input type="submit" name="ajoutNote" value="Ajouter"/>';
-      echo '</form>';
-    }
+
     $db = null;
   }
 
