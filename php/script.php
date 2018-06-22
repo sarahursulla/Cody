@@ -62,7 +62,7 @@ if(isset($_POST["login"])){
         if($data = $req->fetch()){ // Équipe pédagogique ?
           $isPasswordCorrect = password_verify($_POST['password'], $data['password']);
           if($isPasswordCorrect){
-            $_SESSION["ID"] = $data["ID_equipePedagogique"];
+            $_SESSION["ID"] = $data["ID_membre"];
             $_SESSION["PRENOM"] = $data["prenom"];
             $_SESSION["MODE"] = 3;
             $first = first($data["prenom"], $_POST["password"]);

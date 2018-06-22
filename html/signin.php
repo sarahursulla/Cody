@@ -85,7 +85,6 @@
 									<label>Mot de passe<span class="text-danger">*</span></label>
 									<input type="password" name="password" placeholder="password" class="form-control" required/>
 								</div>
-								<p id= "messerror"> error </p>
 
 								<hr>
 
@@ -93,7 +92,7 @@
 									<div class="col-lg-8">
 										<!--<b><a href="">Mot de passe oublié ?</a></b>-->
 									</div>
-									<div class="col-lg-4 text-right">``
+									<div class="col-lg-4 text-right">
                     <input type="submit" name="login" value="Connexion" class="btn btn-action"/>
 									</div>
 								</div>
