@@ -136,7 +136,7 @@ function eleve(){
     $req = $db->prepare("SELECT AVG(note) as moyenne FROM Notes WHERE id_eleve = :id_eleve");
     $req->execute(array("id_eleve" => $_SESSION["ID"]));
     $data = $req->fetch();
-    echo 'Bienvenue '.$_SESSION["PRENOM"].',<br><br>Votre moyenne générale est de '.number_format($data["moyenne"],1).'/20<br><br>';
+    echo '<p class="bienvenue"> Bienvenue '.$_SESSION["PRENOM"].',<br><br>Votre moyenne générale est de '.number_format($data["moyenne"],1).'/20<br><br></p>';
     $req = $db->prepare("SELECT MAX(N.note) as noteMax, MIN(N.note) as noteMin, N.id_matiere as idMatiere, M.nom,
                         (SELECT note FROM Notes WHERE id_eleve = :id_eleve AND id_matiere = idMatiere) as noteEleve,
                         (SELECT appreciation FROM Notes WHERE id_eleve = :id_eleve AND id_matiere = idMatiere) as appreciation,
@@ -170,6 +170,7 @@ function eleve(){
             </tr>';
     }
     echo '</tbody>';
+    echo '</table>';
   }else{
     header("Location:../html/signin.php");
   }
@@ -239,7 +240,7 @@ function equipePedagogique(){
 
 
      //iciiiiiiiii deplacement bienvenue
-    echo '<p class="bienvenue"> Bienvenue '.$_SESSION["PRENOM"].',<br><br></p>';
+    echo '<p class="bienvenue"> Bienvenue '.$_SESSION["PRENOM"].',<br></p>';
     //iciiiiiiiii
     echo '<form class="questions" method="get" action="equipePedagogique.php' . getQueryParams() .  '">';
     echo 'Recherchez par ';
@@ -409,8 +410,8 @@ function listing() {
               <th>Max</th>
               <th>Min</th>
               <th>Appréciation</th>
-              <th>Modifier</th>
-              <th>Supprimer</th>
+              <th>Enregistrer les modifications</th>
+              <th>Supprimer les notes</th>
             </tr></thead>';
     echo '<tbody>';
     foreach($data as $row){

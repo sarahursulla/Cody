@@ -47,7 +47,13 @@
 	<!-- /.navbar -->
 
 	<!-- data table -->
- 	<section id="head" class="secondary"></section>
+   <section id="head" class="secondary"></section>
+   <div class="container">
+   <ol class="breadcrumb">
+			<li><a href="./index.php">Accueil</a></li>
+			<li class="active">Espace personnel</li>
+    </ol>
+  </div>
 	<div id="mainContent">
 	<?php intervenant();?>
 	</div>
@@ -79,7 +85,7 @@
 						<h3 class="widget-title">Pourquoi Cody ?</h3>
 						<div class="widget-body">
 							<p>Notre année à la CodingFactory by Itescia se termine sur un projet à rendre en équipe. Sarah, Nicolas et moi-même avons décidé d'améliorer le quotidien des acteurs de notre école.</p>
-							<p>C'est pour cela que nous avons eu l'idée de crée Cody, un assistant virtuel qui faciliterait la vie et le travail de tous. </p>
+							<p>C'est pour cela que nous avons eu l'idée de créer Cody, un assistant virtuel qui faciliterait la vie et le travail de tous. </p>
 							<p>Loïc de l'AvatarsTeam  </p>
 						</div>
 					</div>
