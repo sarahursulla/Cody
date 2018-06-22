@@ -27,6 +27,8 @@
 </head>
 
 <body>
+
+<h1> COUCOU</h1>
 	<!-- Fixed navbar -->
 	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
 		<div class="container">
