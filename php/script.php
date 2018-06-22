@@ -179,10 +179,10 @@ function intervenant(){
   $id_classe = @$_GET["id_classe"];
   $id_eleve = @$_GET["id_eleve"];
 
-  echo 'Bienvenue '.$_SESSION["PRENOM"].',<br><br>Veuillez selectionner la matière et la classe.<br><br>';
-  echo '<form method="get" action="intervenants.php' . getQueryParams() .'">';
-  echo '<select name="id_matiere" required>';
-  echo '<option selected="true" disabled="disabled">Matière ?</option>';
+  echo '<p class="bienvenue"> Bienvenue '.$_SESSION["PRENOM"].',<br><br>Veuillez selectionner la matière et la classe</p>';
+  echo '<form  class="questions" method="get" action="intervenants.php' . getQueryParams() .'">';
+  echo '<select  class="choix" name="id_matiere" required>';
+  echo '<option selected="true" disabled="disabled">Matière </option>';
   $db = db_connect();
   $req = $db->prepare("SELECT * FROM Matieres WHERE id_intervenant = :id_intervenant");
   $req->execute(array("id_intervenant" => $_SESSION["ID"]));
@@ -197,8 +197,8 @@ function intervenant(){
     echo '<option '. $selected .' value="'.$data["ID_matiere"].'">'.$data["nom"].'</option>';
   }
   echo '</select>';
-  echo '<select name="id_classe" required>';
-  echo '<option selected="true" disabled="disabled">Classe ?</option>';
+  echo '<select  class="choix" name="id_classe" required>';
+  echo '<option selected="true" disabled="disabled">Classe </option>';
   $req = $db->query("SELECT * FROM Classes");
   while($data = $req->fetch()){
     $selected = "";
@@ -210,7 +210,7 @@ function intervenant(){
     echo '<option ' . $selected . ' value="'.$data["ID_classe"].'">'.$data["nom"].'</option>';
   }
   echo '</select>';
-  echo '<button type="submit">Chercher</button>';
+  echo '<button  class="chercher" type="submit">Chercher</button>';
   echo '</form>';
 
   listing();
@@ -234,11 +234,10 @@ function equipePedagogique(){
   echo 'Recherchez par ';
   //iciiiiiiiii
   echo '<select class="choix" name="id_matiere" required>';
-  //iciiiiiiiii j'ai supp ?</option>
-  echo '<option selected="true" disabled="disabled">Matière';
+  echo '<option selected="true" disabled="disabled">Matière</option>';
   $db = db_connect();
    //iciiiiiiiii j'ai ajouté prenom,
-  $req = $db->query("SELECT m.*, prenom, i.nom as nomProf FROM Matieres as m, Intervenants as i WHERE m.id_intervenant = i.ID_intervenant");
+  $req = $db->query("SELECT m.*, prenom, i.nom as nomProf FROM Matieres as m, Intervenants as i WHERE m.id_intervenant = i.ID_intervenant ORDER BY nomProf ASC");
   while($data = $req->fetch()){
     $selected = "";
 
@@ -252,8 +251,7 @@ function equipePedagogique(){
   echo '</select>';
    //iciiiiiiiii
   echo '<select class="choix" name="id_classe" required>';
-   //iciiiiiiiii j'ai supp ?</option>
-  echo '<option selected="true" disabled="disabled">Classe';
+  echo '<option selected="true" disabled="disabled">Classe</option>';
   $req = $db->query("SELECT * FROM Classes");
   while($data = $req->fetch()){
     $selected = "";
@@ -273,10 +271,9 @@ function equipePedagogique(){
   echo 'Recherchez par ';
    //iciiiiiiiii
   echo '<select  class="choix" name="id_eleve" required>';
-     //iciiiiiiiii j'ai supp ?</option>
-  echo '<option selected="true" disabled="disabled">Élève';
+  echo '<option selected="true" disabled="disabled">Élève</option>';
   $db = db_connect();
-  $req = $db->query("SELECT * FROM Eleves");
+  $req = $db->query("SELECT * FROM Eleves ORDER BY nom ASC");
 
   while($data = $req->fetch()){
     $selected = "";
