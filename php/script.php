@@ -128,94 +128,102 @@ if(isset($_POST["supprimeNote"])){
 // Écran des élèves
 //==============================================================================
 function eleve(){
-  $db = db_connect();
-  $req = $db->prepare("SELECT c.* FROM Classes as c, Eleves as e WHERE c.ID_classe = e.id_classe AND e.ID_eleve = :id_eleve");
-  $req->execute(array("id_eleve" => $_SESSION["ID"]));
-  $classe = $req->fetch();
-  $req = $db->prepare("SELECT AVG(note) as moyenne FROM Notes WHERE id_eleve = :id_eleve");
-  $req->execute(array("id_eleve" => $_SESSION["ID"]));
-  $data = $req->fetch();
-  echo 'Bienvenue '.$_SESSION["PRENOM"].',<br><br>Votre moyenne générale est de '.number_format($data["moyenne"],1).'/20<br><br>';
-  $req = $db->prepare("SELECT MAX(N.note) as noteMax, MIN(N.note) as noteMin, N.id_matiere as idMatiere, M.nom,
-                      (SELECT note FROM Notes WHERE id_eleve = :id_eleve AND id_matiere = idMatiere) as noteEleve,
-                      (SELECT appreciation FROM Notes WHERE id_eleve = :id_eleve AND id_matiere = idMatiere) as appreciation,
-                      (SELECT note_groupe FROM Notes WHERE id_eleve = :id_eleve AND id_matiere = idMatiere) as noteGroupe
-                      FROM Notes N, Eleves E, Classes C, Matieres M
-                      WHERE N.id_eleve = E.ID_eleve
-                      AND E.id_classe = C.ID_classe
-                      AND C.ID_classe = :id_classe
-                      AND N.id_matiere = M.ID_matiere
-                      GROUP BY N.id_matiere");
-  $req->execute(array("id_eleve" => $_SESSION["ID"],"id_classe" => $classe["ID_classe"]));
-  $data = $req->fetchAll();
-  echo '<table>';
-  echo '<thead><tr>
-        <th>Matière</th>
-        <th>Note</th>
-        <th>Note de groupe</th>
-        <th>Max</th>
-        <th>Min</th>
-        <th>Appréciation</th>
-        </tr></thead>';
-  echo '<tbody>';
-  foreach($data as $row){
-    echo '<tr>
-          <td>'.$row["nom"].'</td>
-          <td>'.$row["noteEleve"].'</td>
-          <td>'.number_format($row["noteGroupe"],1).'</td>
-          <td>'.$row["noteMax"].'</td>
-          <td>'.$row["noteMin"].'</td>
-          <td>'.$row["appreciation"].'</td>
-          </tr>';
+  if($_SESSION["MODE"] == 1){
+    $db = db_connect();
+    $req = $db->prepare("SELECT c.* FROM Classes as c, Eleves as e WHERE c.ID_classe = e.id_classe AND e.ID_eleve = :id_eleve");
+    $req->execute(array("id_eleve" => $_SESSION["ID"]));
+    $classe = $req->fetch();
+    $req = $db->prepare("SELECT AVG(note) as moyenne FROM Notes WHERE id_eleve = :id_eleve");
+    $req->execute(array("id_eleve" => $_SESSION["ID"]));
+    $data = $req->fetch();
+    echo 'Bienvenue '.$_SESSION["PRENOM"].',<br><br>Votre moyenne générale est de '.number_format($data["moyenne"],1).'/20<br><br>';
+    $req = $db->prepare("SELECT MAX(N.note) as noteMax, MIN(N.note) as noteMin, N.id_matiere as idMatiere, M.nom,
+                        (SELECT note FROM Notes WHERE id_eleve = :id_eleve AND id_matiere = idMatiere) as noteEleve,
+                        (SELECT appreciation FROM Notes WHERE id_eleve = :id_eleve AND id_matiere = idMatiere) as appreciation,
+                        (SELECT note_groupe FROM Notes WHERE id_eleve = :id_eleve AND id_matiere = idMatiere) as noteGroupe
+                        FROM Notes N, Eleves E, Classes C, Matieres M
+                        WHERE N.id_eleve = E.ID_eleve
+                        AND E.id_classe = C.ID_classe
+                        AND C.ID_classe = :id_classe
+                        AND N.id_matiere = M.ID_matiere
+                        GROUP BY N.id_matiere");
+    $req->execute(array("id_eleve" => $_SESSION["ID"],"id_classe" => $classe["ID_classe"]));
+    $data = $req->fetchAll();
+    echo '<table>';
+    echo '<thead><tr>
+          <th>Matière</th>
+          <th>Note</th>
+          <th>Note de groupe</th>
+          <th>Max</th>
+          <th>Min</th>
+          <th>Appréciation</th>
+          </tr></thead>';
+    echo '<tbody>';
+    foreach($data as $row){
+      echo '<tr>
+            <td>'.$row["nom"].'</td>
+            <td>'.$row["noteEleve"].'</td>
+            <td>'.number_format($row["noteGroupe"],1).'</td>
+            <td>'.$row["noteMax"].'</td>
+            <td>'.$row["noteMin"].'</td>
+            <td>'.$row["appreciation"].'</td>
+            </tr>';
+    }
+    echo '</tbody>';
+  }else{
+    header("Location:../html/signin.php");
   }
-  echo '</tbody>';
 }
 
 //==============================================================================
 // Écran des intervenants
 //==============================================================================
 function intervenant(){
-  $id_matiere = @$_GET["id_matiere"];
-  $id_classe = @$_GET["id_classe"];
-  $id_eleve = @$_GET["id_eleve"];
+  if($_SESSION["MODE"] == 2){
+    $id_matiere = @$_GET["id_matiere"];
+    $id_classe = @$_GET["id_classe"];
+    $id_eleve = @$_GET["id_eleve"];
 
-  echo '<p class="bienvenue"> Bienvenue '.$_SESSION["PRENOM"].',</p>';
-  echo '<form  class="questions" method="get" action="intervenants.php' . getQueryParams() .'">';
-  echo 'Veuillez sélectionner la matière et la classe';
-  echo '<select  class="choix" name="id_matiere" required>';
-  echo '<option selected="true" disabled="disabled">Matière </option>';
-  $db = db_connect();
-  $req = $db->prepare("SELECT * FROM Matieres WHERE id_intervenant = :id_intervenant");
-  $req->execute(array("id_intervenant" => $_SESSION["ID"]));
-  while($data = $req->fetch()){
+    echo '<p class="bienvenue"> Bienvenue '.$_SESSION["PRENOM"].',</p>';
+    echo '<form  class="questions" method="get" action="intervenants.php' . getQueryParams() .'">';
+    echo 'Veuillez sélectionner la matière et la classe';
+    echo '<select  class="choix" name="id_matiere" required>';
+    echo '<option selected="true" disabled="disabled">Matière </option>';
+    $db = db_connect();
+    $req = $db->prepare("SELECT * FROM Matieres WHERE id_intervenant = :id_intervenant");
+    $req->execute(array("id_intervenant" => $_SESSION["ID"]));
+    while($data = $req->fetch()){
 
-    $selected = "";
+      $selected = "";
 
-    if ($id_matiere == $data["ID_matiere"]){
-      $selected = 'selected="true"';
+      if ($id_matiere == $data["ID_matiere"]){
+        $selected = 'selected="true"';
+      }
+
+      echo '<option '. $selected .' value="'.$data["ID_matiere"].'">'.$data["nom"].'</option>';
     }
+    echo '</select>';
+    echo 'et';
+    echo '<select  class="choix" name="id_classe" required>';
+    echo '<option selected="true" disabled="disabled">Classe </option>';
+    $req = $db->query("SELECT * FROM Classes");
+    while($data = $req->fetch()){
+      $selected = "";
 
-    echo '<option '. $selected .' value="'.$data["ID_matiere"].'">'.$data["nom"].'</option>';
-  }
-  echo '</select>';
-  echo 'et';
-  echo '<select  class="choix" name="id_classe" required>';
-  echo '<option selected="true" disabled="disabled">Classe </option>';
-  $req = $db->query("SELECT * FROM Classes");
-  while($data = $req->fetch()){
-    $selected = "";
+      if ($id_classe == $data["ID_classe"]){
+        $selected = 'selected="true"';
+      }
 
-    if ($id_classe == $data["ID_classe"]){
-      $selected = 'selected="true"';
+      echo '<option ' . $selected . ' value="'.$data["ID_classe"].'">'.$data["nom"].'</option>';
     }
+    echo '</select>';
+    echo '<button  class="chercher" type="submit">Afficher</button>';
+    echo '</form>';
 
-    echo '<option ' . $selected . ' value="'.$data["ID_classe"].'">'.$data["nom"].'</option>';
+    listing();
+  }else{
+    header("Location:../html/signin.php");
   }
-  echo '</select>';
-  echo '<button  class="chercher" type="submit">Chercher</button>';
-  echo '</form>';
-
-  listing();
 }
 
 
@@ -224,76 +232,80 @@ function intervenant(){
 // Écran de l'équipe pédagogique
 //==============================================================================
 function equipePedagogique(){
-  $id_matiere = @$_GET["id_matiere"];
-  $id_classe = @$_GET["id_classe"];
-  $id_eleve = @$_GET["id_eleve"];
+  if($_SESSION["MODE"] == 3){
+    $id_matiere = @$_GET["id_matiere"];
+    $id_classe = @$_GET["id_classe"];
+    $id_eleve = @$_GET["id_eleve"];
 
 
-   //iciiiiiiiii deplacement bienvenue
-  echo '<p class="bienvenue"> Bienvenue '.$_SESSION["PRENOM"].',<br><br></p>';
-  //iciiiiiiiii
-  echo '<form class="questions" method="get" action="equipePedagogique.php' . getQueryParams() .  '">';
-  echo 'Recherchez par ';
-  //iciiiiiiiii
-  echo '<select class="choix" name="id_matiere" required>';
-  echo '<option selected="true" disabled="disabled">Matière</option>';
-  $db = db_connect();
-   //iciiiiiiiii j'ai ajouté prenom,
-  $req = $db->query("SELECT m.*, prenom, i.nom as nomProf FROM Matieres as m, Intervenants as i WHERE m.id_intervenant = i.ID_intervenant ORDER BY nomProf ASC");
-  while($data = $req->fetch()){
-    $selected = "";
-
-    if ($id_matiere == $data["ID_matiere"]){
-      $selected = 'selected="true"';
-    }
-   //iciiiiiiiii j'ai ajouté prenom et changé l'ordre
-    echo '<option ' . $selected . ' value="'.$data["ID_matiere"].'">'.$data["prenom"].'  '.$data["nomProf"].' - '.$data["nom"].'</option>';
-
-  }
-  echo '</select>';
-  echo 'et';
-   //iciiiiiiiii
-  echo '<select class="choix" name="id_classe" required>';
-  echo '<option selected="true" disabled="disabled">Classe</option>';
-  $req = $db->query("SELECT * FROM Classes");
-  while($data = $req->fetch()){
-    $selected = "";
-
-    if ($id_classe == $data["ID_classe"]){
-      $selected = 'selected="true"';
-    }
-
-    echo '<option ' . $selected . ' value="'.$data["ID_classe"].'">'.$data["nom"].'</option>';
-  }
-  echo '</select>';
+     //iciiiiiiiii deplacement bienvenue
+    echo '<p class="bienvenue"> Bienvenue '.$_SESSION["PRENOM"].',<br><br></p>';
     //iciiiiiiiii
-  echo '<button class="chercher" type="submit">Chercher</button>';
-  echo '<br>Ou';
-  echo '</form>';
-  echo '<form  class="questions" method="get" action="equipePedagogique.php' . getQueryParams() . '">';
-  echo 'Recherchez par ';
-   //iciiiiiiiii
-  echo '<select  class="choix" name="id_eleve" required>';
-  echo '<option selected="true" disabled="disabled">Élève</option>';
-  $db = db_connect();
-  $req = $db->query("SELECT * FROM Eleves ORDER BY nom ASC");
+    echo '<form class="questions" method="get" action="equipePedagogique.php' . getQueryParams() .  '">';
+    echo 'Recherchez par ';
+    //iciiiiiiiii
+    echo '<select class="choix" name="id_matiere" required>';
+    echo '<option selected="true" disabled="disabled">Matière</option>';
+    $db = db_connect();
+     //iciiiiiiiii j'ai ajouté prenom,
+    $req = $db->query("SELECT m.*, prenom, i.nom as nomProf FROM Matieres as m, Intervenants as i WHERE m.id_intervenant = i.ID_intervenant ORDER BY nomProf ASC");
+    while($data = $req->fetch()){
+      $selected = "";
 
-  while($data = $req->fetch()){
-    $selected = "";
+      if ($id_matiere == $data["ID_matiere"]){
+        $selected = 'selected="true"';
+      }
+     //iciiiiiiiii j'ai ajouté prenom et changé l'ordre
+      echo '<option ' . $selected . ' value="'.$data["ID_matiere"].'">'.$data["prenom"].'  '.$data["nomProf"].' - '.$data["nom"].'</option>';
 
-    if ($id_eleve == $data["ID_eleve"]){
-      $selected = 'selected="true"';
     }
+    echo '</select>';
+    echo 'et';
+     //iciiiiiiiii
+    echo '<select class="choix" name="id_classe" required>';
+    echo '<option selected="true" disabled="disabled">Classe</option>';
+    $req = $db->query("SELECT * FROM Classes");
+    while($data = $req->fetch()){
+      $selected = "";
 
-    echo '<option ' . $selected . ' value="'.$data["ID_eleve"].'">'.$data["nom"].' '.$data["prenom"].'</option>';
+      if ($id_classe == $data["ID_classe"]){
+        $selected = 'selected="true"';
+      }
 
+      echo '<option ' . $selected . ' value="'.$data["ID_classe"].'">'.$data["nom"].'</option>';
+    }
+    echo '</select>';
+      //iciiiiiiiii
+    echo '<button class="chercher" type="submit">Afficher</button>';
+    echo '<br>Ou';
+    echo '</form>';
+    echo '<form  class="questions" method="get" action="equipePedagogique.php' . getQueryParams() . '">';
+    echo 'Recherchez par ';
+     //iciiiiiiiii
+    echo '<select  class="choix" name="id_eleve" required>';
+    echo '<option selected="true" disabled="disabled">Élève</option>';
+    $db = db_connect();
+    $req = $db->query("SELECT * FROM Eleves ORDER BY nom ASC");
+
+    while($data = $req->fetch()){
+      $selected = "";
+
+      if ($id_eleve == $data["ID_eleve"]){
+        $selected = 'selected="true"';
+      }
+
+      echo '<option ' . $selected . ' value="'.$data["ID_eleve"].'">'.$data["nom"].' '.$data["prenom"].'</option>';
+
+    }
+    echo '</select>';
+     //iciiiiiiiii
+    echo '<button class="chercher" type="input">Afficher</button>';
+    echo '</form>';
+
+    listing();
+  }else{
+    header("Location:../html/signin.php");
   }
-  echo '</select>';
-   //iciiiiiiiii
-  echo '<button class="chercher" type="input">Chercher</button>';
-  echo '</form>';
-
-  listing();
 }
 
 function listing() {
@@ -355,7 +367,7 @@ function listing() {
             <td><input type="number" name="note" step="0.1" value="'.$row["note"].'"/></td>
             <td><input type="number" name="note_groupe" step="0.1" value="'.$row["note_groupe"].'"/></td>
             <td><input type="text" name="appreciation" value="'.$row["appreciation"].'"/></td>
-            <td><input type="submit" name="changeNote" value="Modifier"/></td>
+            <td><input type="submit" name="changeNote" value="Enregistrer"/></td>
             <td><input type="submit" name="supprimeNote" value="Supprimer"/></td>';
       echo '</tr>';
       echo '</form>';
@@ -412,7 +424,7 @@ function listing() {
             <td>'.number_format($row["noteMax"],1).'</td>
             <td>'.number_format($row["noteMin"],1).'</td>
             <td><input type="text" name="appreciation" value="'.$row["appreciation"].'"/></td>';
-      echo '<td><input type="submit" name="changeNote" value="Modifier"/></td>';
+      echo '<td><input type="submit" name="changeNote" value="Enregistrer"/></td>';
       echo '<td><input type="submit" name="supprimeNote" value="Supprimer"/></td><tr>';
       echo '</tr>';
       echo '</form>';

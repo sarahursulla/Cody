@@ -1,5 +1,12 @@
+<?php
+  session_start();
+  include("../php/db_connect.inc.php");
+  include("../php/script.php");
+  include("../php/header.php");
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
@@ -23,100 +30,110 @@
 	<![endif]-->
 </head>
 
-<body>
+<body class="home">
 	<!-- Fixed navbar -->
 	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
 		<div class="container">
 			<div class="navbar-header">
-				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="./index.php"><img src="../assets/images/logo.png" width="25%" alt="Cody HTML5 template"></a>
+				<a class="navbar-brand" href="index.php"><img src="../assets/images/logo.png" width="25%"  alt="Cody HTML5 template"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
-					<li><a href="./index.php">Accueil</a></li>
-					<li><a href="about.php">En savoir plus sur Cody</a></li>
-					<li class="active"><a class="btn" href="signin.php">CONNEXION</a></li>
+					<li class="active"><a href="index.php">Accueil</a></li>
+					<li><a href="./about.php">En savoir plus sur Cody</a></li>
+					<?php entete($_SESSION["MODE"]);?>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
 	</div>
 	<!-- /.navbar -->
 
-	<header id="head" class="secondary"></header>
+	<!-- Header -->
+	<header id="head">
+		<div class="container">
+			<div class="row">
+			</div>
+		</div>
+	</header>
+	<!-- /Header -->
+
+	<!-- Intro -->
+	<div class="container text-center">
+		<br> <br>
+		<h2 class="thin">Cody, l'outil indispensable à toutes personnes connectées avec Itescia</h2>
+		<p class="text-muted">
+			Facilitez-vous la vie grâce à Cody, un outil conçu par les analystes programmeurs d'Itescia.
+		</p>
+	</div>
+	<!-- /Intro-->
+
+	<!-- Highlights - jumbotron -->
+	<div class="jumbotron top-space">
+		<div class="container">
+
+			<h3 class="text-center thin">A qui profite Cody ?</h3>
+
+			<div class="row">
+				<div class="col-md-3 col-sm-6 highlight">
+					<div class="h-caption"><h4><i class="fa fa-pencil"></i>Les élèves</h4></div>
+					<div class="h-body text-center">
+						<p>Accès instantané aux notes, au planning des cours, au planning des labdays, à la liste des projets de la coding. Statut de la certification en temps réel. Outil de création des groupes de travail... </p>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 highlight">
+					<div class="h-caption"><h4><i class="fa fa-paste"></i>Les intervenants</h4></div>
+					<div class="h-body text-center">
+						<p>Ajout des notes simple et rapide par élèves et par groupes, Création et diffusion rapide des users stories, rappel des notes à intégrer... </p>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 highlight">
+					<div class="h-caption"><h4><i class="fa fa-cogs"></i></i>L'équipe pédagogique</h4></div>
+					<div class="h-body text-center">
+						<p>Gestion des plannings, notification de nouvelles notes, notifications d'absences, notifications de nouveaux documents téléchargés...</p>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 highlight">
+					<div class="h-caption"><h4><i class="fa fa-home"></i>Les écoles innovantes</h4></div>
+					<div class="h-body text-center">
+						<p>Cody sera facilement disponible pour d'autres éoles avec toutes ses fonctionnalités innovantes et bien d'autres à venir </p>
+					</div>
+				</div>
+			</div> <!-- /row  -->
+
+		</div>
+	</div>
+	<!-- /Highlights -->
 
 	<!-- container -->
 	<div class="container">
 
-		<ol class="breadcrumb">
-			<li><a href="./index.php">Accueil</a></li>
-			<li class="active">Création de compte</li>
-		</ol>
+		<h2 class="text-center top-space">De nombreuses fonctionnalités bientôt disponibles, </h2>
+		<h3 class="text-center top-space">Cody vous rendra la vie encore plus facile !</h3>
 
-		<div class="row">
 
-			<!-- Article main content -->
-			<article class="col-xs-12 maincontent">
-				<header class="page-header">
-					<h1 class="page-title">Espace personnel Itescia</h1>
-				</header>
+		</div> <!-- /row -->
 
-				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-					<div class="panel panel-default">
-						<div class="panel-body">
-							<h3 class="thin text-center">Création de compte</h3>
-							<p class="text-center text-muted">Veuillez entrer les informations requises afin de créer votre compte et avoir accès à votre espace personnel Itescia. </p>
-							<br>
-							<p id="warning"> Désolé, la création de compte n'est pas encore disponible... </p>
-							<hr>
 
-							<form>
-								<div class="top-margin">
-									<label>Prénom</label>
-									<input type="text" class="form-control">
-								</div>
-								<div class="top-margin">
-									<label>Nom</label>
-									<input type="text" class="form-control">
-								</div>
-								<div class="top-margin">
-									<label>Qui êtes-vous ?</label>
-									<input type="text" class="form-control">
-								</div>
-								<div class="top-margin">
-									<label>Adresse e-mail <span class="text-danger">*</span></label>
-									<input type="text" class="form-control">
-								</div>
 
-								<div class="row top-margin">
-									<div class="col-sm-6">
-										<label>Mot de passe <span class="text-danger">*</span></label>
-										<input type="text" class="form-control">
-									</div>
-									<div class="col-sm-6">
-										<label>Confirmation mot de passe<span class="text-danger">*</span></label>
-										<input type="text" class="form-control">
-									</div>
-								</div>
+</div>	<!-- /container -->
 
-								<hr>
-
-								<div class="row"></div>
-									<div class="col-lg-4 text-right">
-										<!--<button class="btn btn-action" type="submit">Register</button>-->
-									</div>
-								</div>
-							</form>
-						</div>
-					</div>
-
+	<!-- Social links. @TODO: replace by link/instructions in template -->
+	<section id="social">
+		<div class="container">
+			<div class="wrapper clearfix">
+				<!-- AddThis Button BEGIN -->
+				<div class="addthis_toolbox addthis_default_style">
+				<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+				<a class="addthis_button_tweet"></a>
+				<a class="addthis_button_linkedin_counter"></a>
+				<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
 				</div>
-
-			</article>
-			<!-- /Article -->
-
+				<!-- AddThis Button END -->
+			</div>
 		</div>
-	</div>	<!-- /container -->
+	</section>
+	<!-- /social links -->
 
 
 	<footer id="footer" class="top-space">
@@ -161,7 +178,7 @@
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="simplenav">
-								<a href="./index.php">Home</a> |
+								<a href="index.php">Home</a> |
 								<a href="about.php">En savoir plus sur Cody</a>
 							</p>
 						</div>
