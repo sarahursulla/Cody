@@ -418,6 +418,7 @@ function listing() {
       echo '</form>';
     }
     echo '</tbody>';
+    echo '</table>';
   }
 }
 
