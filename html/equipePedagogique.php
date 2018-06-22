@@ -47,8 +47,10 @@
 	<!-- /.navbar -->
 
 	<!-- data table -->
-  <section id="head" class="secondary"></section>
-    <?php equipePedagogique();?>
+ 	<section id="head" class="secondary"></section>
+	<div id="mainContent">
+	<?php equipePedagogique();?>
+	</div>
 
 	<!-- footer -->
 	<footer id="footer" class="top-space">
@@ -112,11 +114,6 @@
 		</div>
 
 	</footer>
-
-
-
-
-
 	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>

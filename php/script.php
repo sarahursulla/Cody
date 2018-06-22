@@ -226,25 +226,34 @@ function equipePedagogique(){
   $id_classe = @$_GET["id_classe"];
   $id_eleve = @$_GET["id_eleve"];
 
-  echo 'Bienvenue '.$_SESSION["PRENOM"].',<br><br>';
-  echo '<form method="get" action="equipePedagogique.php' . getQueryParams() .  '">';
+
+   //iciiiiiiiii deplacement bienvenue
+  echo '<p class="bienvenue"> Bienvenue '.$_SESSION["PRENOM"].',<br><br></p>';
+  //iciiiiiiiii
+  echo '<form class="questions" method="get" action="equipePedagogique.php' . getQueryParams() .  '">';
   echo 'Recherchez par ';
-  echo '<select name="id_matiere" required>';
-  echo '<option selected="true" disabled="disabled">Matière ?</option>';
+  //iciiiiiiiii
+  echo '<select class="choix" name="id_matiere" required>';
+  //iciiiiiiiii j'ai supp ?</option>
+  echo '<option selected="true" disabled="disabled">Matière';
   $db = db_connect();
-  $req = $db->query("SELECT m.*, i.nom as nomProf FROM Matieres as m, Intervenants as i WHERE m.id_intervenant = i.ID_intervenant");
+   //iciiiiiiiii j'ai ajouté prenom,
+  $req = $db->query("SELECT m.*, prenom, i.nom as nomProf FROM Matieres as m, Intervenants as i WHERE m.id_intervenant = i.ID_intervenant");
   while($data = $req->fetch()){
     $selected = "";
 
     if ($id_matiere == $data["ID_matiere"]){
       $selected = 'selected="true"';
     }
+   //iciiiiiiiii j'ai ajouté prenom et changé l'ordre
+    echo '<option ' . $selected . ' value="'.$data["ID_matiere"].'">'.$data["prenom"].'  '.$data["nomProf"].' - '.$data["nom"].'</option>';
 
-    echo '<option ' . $selected . ' value="'.$data["ID_matiere"].'">'.$data["nomProf"].' - '.$data["nom"].'</option>';
   }
   echo '</select>';
-  echo '<select name="id_classe" required>';
-  echo '<option selected="true" disabled="disabled">Classe ?</option>';
+   //iciiiiiiiii
+  echo '<select class="choix" name="id_classe" required>';
+   //iciiiiiiiii j'ai supp ?</option>
+  echo '<option selected="true" disabled="disabled">Classe';
   $req = $db->query("SELECT * FROM Classes");
   while($data = $req->fetch()){
     $selected = "";
@@ -256,13 +265,16 @@ function equipePedagogique(){
     echo '<option ' . $selected . ' value="'.$data["ID_classe"].'">'.$data["nom"].'</option>';
   }
   echo '</select>';
-  echo '<button type="submit">Chercher</button>';
+    //iciiiiiiiii
+  echo '<button class="chercher" type="submit">Chercher</button>';
   echo '<br>Ou';
   echo '</form>';
-  echo '<form method="get" action="equipePedagogique.php' . getQueryParams() . '">';
+  echo '<form  class="questions" method="get" action="equipePedagogique.php' . getQueryParams() . '">';
   echo 'Recherchez par ';
-  echo '<select name="id_eleve" required>';
-  echo '<option selected="true" disabled="disabled">Élève ?</option>';
+   //iciiiiiiiii
+  echo '<select  class="choix" name="id_eleve" required>';
+     //iciiiiiiiii j'ai supp ?</option>
+  echo '<option selected="true" disabled="disabled">Élève';
   $db = db_connect();
   $req = $db->query("SELECT * FROM Eleves");
 
@@ -277,7 +289,8 @@ function equipePedagogique(){
 
   }
   echo '</select>';
-  echo '<button type="input">Chercher</button>';
+   //iciiiiiiiii
+  echo '<button class="chercher" type="input">Chercher</button>';
   echo '</form>';
 
   listing();
@@ -302,21 +315,21 @@ function listing() {
 
     echo '<table>';
     echo '<thead><tr>
-          <th></th>
-          <th></th>
           <th>Nom</th>
           <th>Prénom</th>
           <th>Note</th>
           <th>Note de groupe</th>
           <th>Appréciation</th>
+          <th>Modifier</th>
+          <th>Supprimer</th>
           </tr>
           </thead>';
     echo '<tbody>';
     foreach($data as $row){
       echo '<form method="post" action="">';
       echo '<tr>';
-      echo '<td><input type="hidden" name="ID_eleve" value="'.$row["ID_eleve"].'"/></td>
-            <td><input type="hidden" name="id_matiere" value="'.$row["id_matiere"].'"/></td>
+      echo '<input type="hidden" name="ID_eleve" value="'.$row["ID_eleve"].'"/>
+            <input type="hidden" name="id_matiere" value="'.$row["id_matiere"].'"/>
             <td>'.$row["nom"].'</td>
             <td>'.$row["prenom"].'</td>
             <td><input type="number" name="note" step="0.1" value="'.$row["note"].'"/></td>
@@ -373,23 +386,23 @@ function listing() {
                         GROUP BY N.id_matiere");
     $req->execute(array("id_eleve" => $id_eleve,"id_classe" => $data["id_classe"]));
     $data = $req->fetchAll();
-    echo '<table>';
-    echo '<thead><tr>
-          <th></th>
-          <th></th>
-          <th>Matière</th>
-          <th>Note</th>
-          <th>Note de groupe</th>
-          <th>Max</th>
-          <th>Min</th>
-          <th>Appréciation</th>
-          </tr></thead>';
+    echo '<table>
+            <thead><tr>
+              <th>Matière</th>
+              <th>Note</th>
+              <th>Note de groupe</th>
+              <th>Max</th>
+              <th>Min</th>
+              <th>Appréciation</th>
+              <th>Modifier</th>
+              <th>Supprimer</th>
+            </tr></thead>';
     echo '<tbody>';
     foreach($data as $row){
       echo '<form method="post">';
       echo '<tr>';
-      echo '<td><input type="hidden" name="ID_eleve" value="'.$row["ID_eleve"].'"/></td>
-            <td><input type="hidden" name="id_matiere" value="'.$row["idMatiere"].'"/></td>
+      echo '<input type="hidden" name="ID_eleve" value="'.$row["ID_eleve"].'"/>
+            <input type="hidden" name="id_matiere" value="'.$row["idMatiere"].'"/>
             <td>'.$row["nom"].'</td>
             <td><input type="number" name="note" step="0.1" value="'.$row["noteEleve"].'"/></td>
             <td><input type="number" name="note_groupe" step="0.1" value="'.number_format($row["noteGroupe"],1).'"/></td>
@@ -406,7 +419,7 @@ function listing() {
 }
 
 //==============================================================================
-//
+// Gestion mots de passe
 //==============================================================================
 if(isset($_POST["changermdp"])){
   switch ($_SESSION["MODE"]) {

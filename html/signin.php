@@ -85,6 +85,7 @@
 									<label>Mot de passe<span class="text-danger">*</span></label>
 									<input type="password" name="password" placeholder="password" class="form-control" required/>
 								</div>
+								<p id= "messerror"> error </p>
 
 								<hr>
 
