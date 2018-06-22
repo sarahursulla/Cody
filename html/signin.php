@@ -73,6 +73,7 @@
 						<div class="panel-body">
 							<h3 class="thin text-center">Connexion</h3>
 							<p class="text-center text-muted">Si vous n'avez pas encore de compte Itescia, <a href="signup.php">créez votre compte ici</a><br>Sinon, utilisez les identifiants qui vous ont été fournis. </p>
+              <p id="error">INSERER MESSAGE D'ERREUR ICI >:C</p>
 							<hr>
 
 							<form method="post">
@@ -91,8 +92,8 @@
 									<div class="col-lg-8">
 										<!--<b><a href="">Mot de passe oublié ?</a></b>-->
 									</div>
-									<div class="col-lg-4 text-right">
-									<input type="submit" name="login" value="Connexion" class="btn btn-action"/>
+									<div class="col-lg-4 text-right">``
+                    <input type="submit" name="login" value="Connexion" class="btn btn-action"/>
 									</div>
 								</div>
 							</form>

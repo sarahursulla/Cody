@@ -72,9 +72,11 @@ if(isset($_POST["login"])){
               header("Location:../html/equipePedagogique.php");
             }
           }
-          else{ // Erreur
-            echo "Erreur";
-          }
+        }
+        else{
+          echo '<script type="text/javascript">
+                document.getElementById("error").innerHTML = "cest peesonne";
+                </script>';
         }
       }
       $db = null;
