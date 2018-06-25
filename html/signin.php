@@ -59,7 +59,7 @@
   					<div class="panel panel-default">
   						<div class="panel-body">
   							<h3 class="thin text-center">Connexion</h3>
-  							<p class="text-center text-muted">Si vous n'avez pas encore de compte Itescia,<a href="signup.php">créez votre compte ici</a><br>Sinon, utilisez les identifiants qui vous ont été fournis.</p>
+  							<p class="text-center text-muted">Utilisez les identifiants qui vous ont été fournis.</p>
   							<hr>
   							<form method="post">
   								<div class="top-margin">

@@ -4,7 +4,7 @@
 //==============================================================================
 if (isset($_POST["login"])) {
   if (empty($_POST["email"]) || empty($_POST["password"])) {
-    //VEUILLEZ RENTRER VOS IDENTIFIANTS
+    // VEUILLEZ RENTRER VOS IDENTIFIANTS
   }else {
     $db = db_connect();
     $req = $db->prepare("SELECT * FROM Eleves WHERE email = :email");
@@ -22,7 +22,7 @@ if (isset($_POST["login"])) {
         if ($data = $req->fetch()) { // Équipe pédagogique ?
           MDP("ID_membre", 6, 3, $data, $_POST);
         }else {
-          //LOGIN INCORRECT
+          // LOGIN INCORRECT
         }
       }
       $db = null;
@@ -83,7 +83,7 @@ if (isset($_POST["supprimeNote"])) {
 // Écran des élèves
 //==============================================================================
 function eleve() {
-  if ($_SESSION["MODE"] == 1) {
+  if ($_SESSION["MODE"] == 1) { // On vérifie que c'est bien un élève
     $db = db_connect();
     $req = $db->prepare("SELECT C.* FROM Classes C, Eleves E WHERE C.ID_classe = E.id_classe AND E.ID_eleve = :id_eleve");
     $req->execute(array("id_eleve" => $_SESSION["ID"]));
@@ -91,7 +91,7 @@ function eleve() {
     $req = $db->prepare("SELECT AVG(note) as moyenne FROM Notes WHERE id_eleve = :id_eleve");
     $req->execute(array("id_eleve" => $_SESSION["ID"]));
     $data = $req->fetch();
-    echo '<p class="bienvenue">Bienvenue '.$_SESSION["PRENOM"].',<br><br>Votre moyenne générale est de '.number_format($data["moyenne"], 1).'/20<br><br></p>';
+    echo '<p class="bienvenue">Bienvenue <b>'.$_SESSION["PRENOM"].'</b>,<br><br>Votre moyenne générale est de '.number_format($data["moyenne"], 1).'/20</p>';
     $req = $db->prepare("SELECT MAX(N.note) as noteMax, MIN(N.note) as noteMin, AVG(N.note) as moyenne, N.id_matiere as idMatiere, M.nom,
                         (SELECT note FROM Notes WHERE id_eleve = :id_eleve AND id_matiere = idMatiere) as noteEleve,
                         (SELECT appreciation FROM Notes WHERE id_eleve = :id_eleve AND id_matiere = idMatiere) as appreciation,
@@ -104,7 +104,7 @@ function eleve() {
                         GROUP BY N.id_matiere");
     $req->execute(array("id_eleve" => $_SESSION["ID"], "id_classe" => $classe["ID_classe"]));
     $data = $req->fetchAll();
-    echo '<table>';
+    echo '<table>'; // Affichage du tableau
     echo '<thead><tr>
           <th>Matière</th>
           <th>Note</th>
@@ -137,14 +137,14 @@ function eleve() {
 // Écran des intervenants
 //==============================================================================
 function intervenant() {
-  if ($_SESSION["MODE"] == 2) {
+  if ($_SESSION["MODE"] == 2) { // On vérifie que c'est bien un intervenant
     $id_matiere = @$_GET["id_matiere"];
     $id_classe = @$_GET["id_classe"];
     $id_eleve = @$_GET["id_eleve"];
-    echo '<p class="bienvenue">Bienvenue '.$_SESSION["PRENOM"].',</p>';
-    echo '<form class="questions" method="get" action="intervenants.php'.getQueryParams().'">';
+    echo '<p class="bienvenue">Bienvenue <b>'.$_SESSION["PRENOM"].'</b>,</p>';
+    echo '<form class="questions" method="get" action="intervenants.php'.getQueryParams().'">'; // Formulaire pour les intervenants
     echo 'Veuillez sélectionner la matière et la classe';
-    echo '<select class="choix" name="id_matiere" required>';
+    echo '<select class="choix" name="id_matiere" required>'; // Sélection de la matière
     echo '<option selected="true" disabled="disabled">Matière</option>';
     $db = db_connect();
     $req = $db->prepare("SELECT * FROM Matieres WHERE id_intervenant = :id_intervenant");
@@ -157,8 +157,7 @@ function intervenant() {
       echo '<option '.$selected.' value="'.$data["ID_matiere"].'">'.$data["nom"].'</option>';
     }
     echo '</select>';
-    echo 'et';
-    echo '<select class="choix" name="id_classe" required>';
+    echo '<select class="choix" name="id_classe" required>'; // Sélection de la classe
     echo '<option selected="true" disabled="disabled">Classe</option>';
     $req = $db->query("SELECT * FROM Classes");
     while ($data = $req->fetch()) {
@@ -181,27 +180,27 @@ function intervenant() {
 // Écran de l'équipe pédagogique
 //==============================================================================
 function equipePedagogique() {
-  if ($_SESSION["MODE"] == 3) {
+  if ($_SESSION["MODE"] == 3) { // On vérifie que c'est bien un membre de l'équipe pédagogique
     $id_matiere = @$_GET["id_matiere"];
     $id_classe = @$_GET["id_classe"];
     $id_eleve = @$_GET["id_eleve"];
-    echo '<p class="bienvenue">Bienvenue '.$_SESSION["PRENOM"].',<br></p>';
-    echo '<form class="questions" method="get" action="equipePedagogique.php'.getQueryParams().'">';
+    echo '<p class="bienvenue">Bienvenue <b>'.$_SESSION["PRENOM"].',</b><br></p>';
+    echo '<form class="questions" method="get" action="equipePedagogique.php'.getQueryParams().'">'; // Formulaire en fonction de la matière pour l'équipe pédagogique
     echo 'Recherchez par';
-    echo '<select class="choix" name="id_matiere" required>';
+    echo '<select class="choix" name="id_matiere" required>'; // Sélection de la matière
     echo '<option selected="true" disabled="disabled">Matière</option>';
     $db = db_connect();
-    $req = $db->query("SELECT M.*, I.prenom as prenomProf, I.nom as nomProf FROM Matieres M, Intervenants I WHERE M.id_intervenant = I.ID_intervenant ORDER BY nomProf ASC");
+    $req = $db->query("SELECT M.*, I.prenom as prenomProf, I.nom as nomProf FROM Matieres M, Intervenants I WHERE M.id_intervenant = I.ID_intervenant ORDER BY M.nom ASC");
     while ($data = $req->fetch()) {
       $selected = "";
       if ($id_matiere == $data["ID_matiere"]) {
         $selected = 'selected="true"';
       }
-      echo '<option '.$selected.' value="'.$data["ID_matiere"].'">'.$data["nomProf"].' '.$data["prenomProf"].' - '.$data["nom"].'</option>';
+      echo '<option '.$selected.' value="'.$data["ID_matiere"].'">'.$data["nom"].' - '.$data["prenomProf"].' '.$data["nomProf"].'</option>';
     }
     echo '</select>';
     echo 'et';
-    echo '<select class="choix" name="id_classe" required>';
+    echo '<select class="choix" name="id_classe" required>'; // Sélection de la matière
     echo '<option selected="true" disabled="disabled">Classe</option>';
     $req = $db->query("SELECT * FROM Classes");
     while ($data = $req->fetch()) {
@@ -215,9 +214,9 @@ function equipePedagogique() {
     echo '<button class="chercher" type="submit">Afficher</button>';
     echo '<br>Ou';
     echo '</form>';
-    echo '<form class="questions" method="get" action="equipePedagogique.php'.getQueryParams().'">';
+    echo '<form class="questions" method="get" action="equipePedagogique.php'.getQueryParams().'">'; // Formulaire en fonction de l'élève pour l'équipe pédagogique
     echo 'Recherchez par';
-    echo '<select class="choix" name="id_eleve" required>';
+    echo '<select class="choix" name="id_eleve" required>'; // Sélection de l'élève
     echo '<option selected="true" disabled="disabled">Élève</option>';
     $db = db_connect();
     $req = $db->query("SELECT * FROM Eleves ORDER BY nom ASC");
@@ -237,7 +236,7 @@ function equipePedagogique() {
   }
 }
 
-function listing() {
+function listing() { // Sélection du bon tableau à rendre
   //============================================================================
   // Affichages des notes par matières
   //============================================================================
@@ -251,7 +250,7 @@ function listing() {
     $req->execute(array("id_classe" => $id_classe, "id_matiere" => $id_matiere));
     $data = $req->fetchAll();
     $nbdata = count($data);
-    if ($nbdata > 0) {
+    if ($nbdata > 0) { // Si des élèves n'ont pas de notes
       echo '<br><br><br><form class="questions" method="post" action="">';
       echo 'Ajouter une note à un élève manquant';
       echo '<select class="choix" name="id_eleve" required>';
@@ -274,7 +273,7 @@ function listing() {
                         ORDER BY E.nom ASC");
     $req->execute(array("id_matiere" => $id_matiere, "id_classe" => $id_classe));
     $data = $req->fetchAll();
-    echo '<table>';
+    echo '<table>'; // Affichage du tableau
     echo '<thead><tr>
           <th>Nom</th>
           <th>Prénom</th>
@@ -327,7 +326,7 @@ function listing() {
                         GROUP BY N.id_matiere");
     $req->execute(array("id_eleve" => $id_eleve, "id_classe" => $data["id_classe"]));
     $data = $req->fetchAll();
-    echo '<table>';
+    echo '<table>'; // Affichage du tableau
     echo '<thead><tr>
           <th>Matière</th>
           <th>Note</th>
@@ -341,21 +340,23 @@ function listing() {
           </tr></thead>';
     echo '<tbody>';
     foreach ($data as $row) {
-      echo '<form method="post">';
-      echo '<tr>';
-      echo '<input type="hidden" name="ID_eleve" value="'.$row["ID_eleve"].'"/>
-            <input type="hidden" name="id_matiere" value="'.$row["idMatiere"].'"/>
-            <td>'.$row["nom"].'</td>
-            <td><input type="number" name="note" step="0.1" value="'.$row["noteEleve"].'"/></td>
-            <td><input type="number" name="note_groupe" step="0.1" value="'.number_format($row["noteGroupe"],1).'"/></td>
-            <td>'.number_format($row["moyenne"],1).'</td>
-            <td>'.number_format($row["noteMax"],1).'</td>
-            <td>'.number_format($row["noteMin"],1).'</td>
-            <td><input type="text" name="appreciation" value="'.$row["appreciation"].'"/></td>';
-      echo '<td><input type="submit" name="changeNote" value="Enregistrer"/></td>';
-      echo '<td><input type="submit" name="supprimeNote" value="Supprimer"/></td>';
-      echo '</tr>';
-      echo '</form>';
+      if (!(is_null($row["noteEleve"]) || is_null($row["noteGroupe"]))) { // Si il manque une note
+        echo '<form method="post">';
+        echo '<tr>';
+        echo '<input type="hidden" name="ID_eleve" value="'.$row["ID_eleve"].'"/>
+              <input type="hidden" name="id_matiere" value="'.$row["idMatiere"].'"/>
+              <td>'.$row["nom"].'</td>
+              <td><input type="number" name="note" step="0.1" value="'.$row["noteEleve"].'"/></td>
+              <td><input type="number" name="note_groupe" step="0.1" value="'.number_format($row["noteGroupe"], 1).'"/></td>
+              <td>'.number_format($row["moyenne"], 1).'</td>
+              <td>'.number_format($row["noteMax"], 1).'</td>
+              <td>'.number_format($row["noteMin"], 1).'</td>
+              <td><input type="text" name="appreciation" value="'.$row["appreciation"].'"/></td>';
+        echo '<td><input type="submit" name="changeNote" value="Enregistrer"/></td>';
+        echo '<td><input type="submit" name="supprimeNote" value="Supprimer"/></td>';
+        echo '</tr>';
+        echo '</form>';
+      }
     }
     echo '</tbody>';
     echo '</table>';
@@ -367,25 +368,24 @@ function listing() {
 //==============================================================================
 if (isset($_POST["changermdp"])) {
   switch ($_SESSION["MODE"]) {
-    case 4:
+    case 4: // Élèves
       $table = "Eleves";
       $idtable = "ID_eleve";
       $_SESSION["MODE"] = 1;
       break;
-    case 5:
+    case 5: // Intervenants
       $table = "Intervenants";
       $idtable = "ID_intervenant";
       $_SESSION["MODE"] = 2;
       break;
-    case 6:
+    case 6: // Équipe pédagogique
       $table = "EquipePedagogique";
       $idtable = "ID_membre";
       $_SESSION["MODE"] = 3;
       break;
   }
-  $default = '@'.$_SESSION["PRENOM"];
-  $hache = password_hash($_POST["pass1"], PASSWORD_DEFAULT);
-  if ($_POST["pass1"] == $_POST["pass2"] && $_POST["pass1"] != $default) {
+  $hache = password_hash($_POST["pass1"], PASSWORD_DEFAULT); // Hachage du mot de passe
+  if ($_POST["pass1"] == $_POST["pass2"]) {
     $db = db_connect();
     $req = $db->prepare("UPDATE $table SET password = :password WHERE $idtable = :idtable2");
     $req->execute(array("password" => $hache, "idtable2" => $_SESSION["ID"]));
@@ -402,7 +402,7 @@ if (isset($_POST["changermdp"])) {
         break;
     }
   }
-  echo 'nope';
+  // LES DEUX ENTRÉES DOIVENT ÊTRE IDENTIQUES
 }
 
 //==============================================================================
