@@ -3,6 +3,7 @@
   include("../php/db_connect.inc.php");
   include("../php/script.php");
   include("../php/header.php");
+  $_SESSION["MODE"] = 0;
 ?>
 <!DOCTYPE html>
 <html lang="fr">
