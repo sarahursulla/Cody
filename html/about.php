@@ -48,20 +48,22 @@
   			<!-- Article main content -->
   			<article class="col-sm-8 maincontent">
   				<header class="page-header">
-  					<h1 class="page-title">Quelques mots sur l'assitant virtuel Cody</h1>
+  					<h1 class="page-title">Quelques mots sur l'assistant virtuel Cody</h1>
   				</header>
-  				<h3>Un besoin, une solution</h3>
+  				<h3><b>Un besoin, une solution</b></h3>
   				<p><img src="../assets/images/mac.jpg" alt="mac" class="img-rounded pull-right" id="imgAbout" width="300">Imaginé par les analystes programmeurs de la CodingFactory byItescia, l'assistant virtuel Cody répond à un besoin d'abord identifié par ces mêmes codeurs et ensuite confirmé par les élèves, les intervenants et l'équipe pédagogique d'Itescia.</p>
-  				<h3>L'accès aux notes pour les élèves</h3>
-  				<p>Point de douleur principal pour les élèves, les notes sont maintenant disponibles facilement. Il suffit de se connecter pour connaitre toutes les notes, les appréciations et les moyennes.<br><br>
-  				L'accès au planning des cours, au planning des labdays, à la liste des projets de la coding, le statut en temps réel de la certification, l'outil de création des groupes de travail... sont autant de fonctionnalités qui vont changer la vie des élèves de la CodingFactory, et par la suite d'Itescia et des autres écoles.</p>
-  				<h3>Une gestion des notes facilitée pour les intervenants</h3>
-  				<p>L'ajout des notes est maintenant simple et rapide, que ce soit par élèves ou par groupe d'élèves, l'intervenant n'a qu'à se connecter et choisir pour qui il veut entrer ou modifier des notes. De plus, il sera notifié pour rapidement entrer les notes d'un cours récemment donné.<br><br>
+  				<h3><b>L'accès aux notes pour les élèves</b></h3>
+  				<p>Point d'intérêt principal pour les élèves, les notes sont maintenant disponibles facilement. Il suffit de se connecter pour connaitre toutes les notes, les appréciations et les moyennes.<br><br>
+  				Fonctionnalités à venir : L'accès au planning des cours, au planning des labdays, à la liste des projets de la coding, le statut en temps réel de la certification, l'outil de création des groupes de travail.
+          Autant de fonctionnalités qui vont changer la vie des élèves de la CodingFactory, et pourquoi les autres écoles de la CCI.</p>
+  				<h3><b>Une gestion des notes facile pour les intervenants</b></h3>
+  				<p>L'ajout des notes est maintenant simple et rapide, que ce soit par élèves ou par groupe d'élèves, l'intervenant n'a qu'à se connecter et choisir pour qui il veut entrer ou modifier des notes. <br><br>
+          Fonctionnalités à venir : l'enseignant sera notifié pour rapidement entrer les notes d'un cours récemment donné.
   				Nous allons aussi proposer la possibilité de créer et diffuser rapidement, à un format défini les users stories pour chaque classe.</p>
-  				<h3>Améliorer le travail de l'équipe pédagogique: une priorité</h3>
-  				<p>Consulter, ou modifier les notes d'un élève, d'une classe, une moyenne, être notifié d'un ajout de notes... Tout cela est déjà disponible avec Cody !<br><br>
-  				Et bientôt, la gestion des plannings, la notification d'absences, la notification d'ajout de nouveaux documents téléchargés par les élèves...</p><br>
-  				<p>Cody pourra être disponible pour d'autres écoles avec toutes ses fonctionnalités innovantes et bien d'autres à venir</p>
+  				<h3><b>Améliorer le travail de l'équipe pédagogique: une priorité</b></h3>
+  				<p>Consulter, ou modifier les notes d'un élève, d'une classe, une moyenne, être notifié d'un ajout de notes<br><br>
+  				Fonctionnalités à venir : la gestion des plannings, la notification d'absences, la notification d'ajout de nouveaux documents téléchargés par les élèves...</p>
+  				<p><b>Cody pourra être disponible pour d'autres écoles avec toutes ses fonctionnalités innovantes et bien d'autres à venir !</b></p>
   			</article>
   			<!-- /Article -->
   		</div>

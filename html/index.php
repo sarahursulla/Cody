@@ -50,37 +50,37 @@
   	<!-- Intro -->
   	<div class="container text-center">
   		<br><br>
-  		<h2 class="thin">Cody, l'outil indispensable à toutes personnes connectées avec Itescia</h2>
+  		<h2 class="thin">Cody, l'outil indispensable</h2>
   		<p class="text-muted">Facilitez-vous la vie grâce à Cody, un outil conçu par les analystes programmeurs d'Itescia.</p>
   	</div>
   	<!-- /Intro-->
   	<!-- Highlights - jumbotron -->
   	<div class="jumbotron top-space">
   		<div class="container">
-  			<h3 class="text-center thin">A qui profite Cody ?</h3>
+  			<h3 class="text-center thin">Fonctionnalités à venir </h3>
   			<div class="row">
   				<div class="col-md-3 col-sm-6 highlight">
-  					<div class="h-caption"><h4><i class="fa fa-pencil"></i>Les élèves</h4></div>
+  					<div class="h-caption"><h4><i class="fa fa-pencil"></i>Elèves</h4></div>
   					<div class="h-body text-center">
-  						<p>Accès instantané aux notes, au planning des cours, au planning des labdays, à la liste des projets de la coding. Statut de la certification en temps réel. Outil de création des groupes de travail...</p>
+  						<p>Consultation des notes, planning des cours, planning des labdays, projets de la coding. Statut de la certification. Création des groupes de travail.</p>
   					</div>
   				</div>
   				<div class="col-md-3 col-sm-6 highlight">
-  					<div class="h-caption"><h4><i class="fa fa-paste"></i>Les intervenants</h4></div>
+  					<div class="h-caption"><h4><i class="fa fa-paste"></i>Intervenants</h4></div>
   					<div class="h-body text-center">
-  						<p>Ajout des notes simple et rapide par élèves et par groupes, Création et diffusion rapide des users stories, rappel des notes à intégrer...</p>
+  						<p>Gestion des notes par élèves ou par groupes, Création users stories, notifications si l'Intervenant oubli de rentrer les notes. </p>
   					</div>
   				</div>
   				<div class="col-md-3 col-sm-6 highlight">
-  					<div class="h-caption"><h4><i class="fa fa-cogs"></i></i>L'équipe pédagogique</h4></div>
+  					<div class="h-caption"><h4><i class="fa fa-cogs"></i></i>Equipe pédagogique</h4></div>
   					<div class="h-body text-center">
   						<p>Gestion des plannings, notification de nouvelles notes, notifications d'absences, notifications de nouveaux documents téléchargés...</p>
   					</div>
   				</div>
   				<div class="col-md-3 col-sm-6 highlight">
-  					<div class="h-caption"><h4><i class="fa fa-home"></i>Les écoles innovantes</h4></div>
+  					<div class="h-caption"><h4><i class="fa fa-home"></i>Ecoles de la CCI</h4></div>
   					<div class="h-body text-center">
-  						<p>Cody sera facilement disponible pour d'autres éoles avec toutes ses fonctionnalités innovantes et bien d'autres à venir</p>
+  						<p>Cette solution ergonomique sera proposée aux autres écoles de la CCI</p>
   					</div>
   				</div>
   			</div> <!-- /row  -->
@@ -89,8 +89,8 @@
   	<!-- /Highlights -->
   	<!-- container -->
   	<div class="container">
-  		<h2 class="text-center top-space">De nombreuses fonctionnalités bientôt disponibles, </h2>
-  		<h3 class="text-center top-space">Cody vous rendra la vie encore plus facile !</h3>
+  		<h2 class="text-center top-space">Cody vous rendra la vie facile !</h2>
+  		<h3 class="text-center top-space">grâce aux nombreuses fonctionnalités bientôt disponibles.</h3>
   		</div> <!-- /row -->
     </div>	<!-- /container -->
   	<!-- Social links. @TODO: replace by link/instructions in template -->
@@ -132,7 +132,7 @@
   					<div class="col-md-6 widget">
   						<h3 class="widget-title">Pourquoi Cody ?</h3>
   						<div class="widget-body">
-  							<p>Notre année à la CodingFactory by Itescia se termine sur un projet à rendre en équipe. Sarah, Nicolas et moi-même avons décidé d'améliorer le quotidien des acteurs de notre école.</p>
+  							<p>Notre année à la CodingFactory by Itescia se termine sur un projet à rendre en équipe. Sarah, Nicolas et Loic avons décidé d'améliorer le quotidien des acteurs de notre école.</p>
   							<p>C'est pour cela que nous avons eu l'idée de créer Cody, un assistant virtuel qui faciliterait la vie et le travail de tous.</p>
   							<p>Loïc de l'AvatarsTeam  </p>
   						</div>

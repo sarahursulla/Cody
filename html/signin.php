@@ -53,7 +53,7 @@
   			<!-- Article main content -->
   			<article class="col-xs-12 maincontent">
   				<header class="page-header">
-  					<h1 class="page-title">Espace personnel Itescia</h1>
+  					<h1 class="page-title"><b>Espace personnel Itescia<b/>S</h1>
   				</header>
   				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
   					<div class="panel panel-default">
