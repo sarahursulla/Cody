@@ -49,7 +49,7 @@
   	<!-- /Header -->
   	<!-- Intro -->
   	<div class="container text-center">
-  		<br> <br>
+  		<br><br>
   		<h2 class="thin">Cody, l'outil indispensable à toutes personnes connectées avec Itescia</h2>
   		<p class="text-muted">Facilitez-vous la vie grâce à Cody, un outil conçu par les analystes programmeurs d'Itescia.</p>
   	</div>

@@ -5,23 +5,23 @@
 if (isset($_POST["login"])) {
   if (empty($_POST["email"]) || empty($_POST["password"])) {
     // ERREUR : VEUILLEZ RENTRER VOS IDENTIFIANTS
-  }else {
+  } else {
     $db = db_connect();
     $req = $db->prepare("SELECT * FROM Eleves WHERE email = :email");
     $req->execute(array("email" => $_POST["email"]));
     if ($data = $req->fetch()) { // Élève ?
       MDP("ID_eleve", 1, 4, $data, $_POST);
-    }else {
+    } else {
       $req = $db->prepare("SELECT * FROM Intervenants WHERE email = :email");
       $req->execute(array("email" => $_POST["email"]));
       if ($data = $req->fetch()) { // Intervenant ?
         MDP("ID_intervenant", 2, 5, $data, $_POST);
-      }else {
+      } else {
         $req = $db->prepare("SELECT * FROM EquipePedagogique WHERE email = :email");
         $req->execute(array("email" => $_POST["email"]));
         if ($data = $req->fetch()) { // Équipe pédagogique ?
           MDP("ID_membre", 3, 6, $data, $_POST);
-        }else {
+        } else {
           // ERREUR : LOGIN INCORRECT
         }
       }
@@ -39,13 +39,15 @@ function MDP($id, $mode, $mode2, $data, $post) {
     if ($position === 0) {
       $_SESSION["MODE"] = $mode2;
       header("Location:../html/changePassword.php");
-    }else {
+    } else {
       $isPasswordCorrect = password_verify($post["password"], $data["password"]);
       if ($isPasswordCorrect) {
         $_SESSION["MODE"] = $mode;
         header("Location:../html/equipePedagogique.php");
       }
     }
+  } else {
+    // ERREUR : LOGIN INCORRECT
   }
 }
 
@@ -382,8 +384,8 @@ if (isset($_POST["changermdp"])) {
       $idtable = "ID_membre";
       break;
   }
-  $hache = password_hash($_POST["pass1"], PASSWORD_DEFAULT); // Hachage du mot de passe
   if ($_POST["pass1"] == $_POST["pass2"]) {
+    $hache = password_hash($_POST["pass1"], PASSWORD_DEFAULT); // Hachage du mot de passe
     $db = db_connect();
     $req = $db->prepare("UPDATE $table SET password = :password WHERE $idtable = :idtable2");
     $req->execute(array("password" => $hache, "idtable2" => $_SESSION["ID"]));
@@ -407,7 +409,7 @@ if (isset($_POST["changermdp"])) {
 }
 
 //==============================================================================
-//
+// Concervation de l'historique de recherche
 //==============================================================================
 function getQueryParams() {
   $params = array();
