@@ -1,3 +1,4 @@
+ <!-- liens vers feuilles de style, ressources...-->
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
@@ -11,12 +12,11 @@
 		<link rel="stylesheet" href="../assets/css/bootstrap-theme.css" media="screen">
 		<link rel="stylesheet" href="../assets/css/main.css">
 	</head>
+	<!-- Header -->
 	<body>
-	<!-- Fixed navbar -->
 		<div class="navbar navbar-inverse navbar-fixed-top headroom">
 			<div class="container">
 				<div class="navbar-header">
-					<!-- Button for smallest screens -->
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
 					<a class="navbar-brand" href="./index.php"><img src="../assets/images/logo.png" width="25%" alt="Cody HTML5 template"></a>
 				</div>
@@ -26,19 +26,18 @@
 						<li><a href="about.php">En savoir plus sur Cody</a></li>
 						<li class="active"><a class="btn" href="signin.php">CONNEXION</a></li>
 					</ul>
-				</div><!--/.nav-collapse -->
+				</div>
 			</div>
 		</div>
-		<!-- /.navbar -->
 		<header id="head" class="secondary"></header>
-		<!-- container -->
+		<!-- chemin pages -->
 		<div class="container">
 			<ol class="breadcrumb">
 				<li><a href="./index.php">Accueil</a></li>
 				<li class="active">Création de compte</li>
 			</ol>
+			<!-- espace personnel -->
 			<div class="row">
-				<!-- Article main content -->
 				<article class="col-xs-12 maincontent">
 					<header class="page-header">
 						<h1 class="page-title">Espace personnel Itescia</h1>
@@ -81,7 +80,6 @@
 									<hr>
 									<div class="row"></div>
 										<div class="col-lg-4 text-right">
-											<!--<button class="btn btn-action" type="submit">Register</button>-->
 										</div>
 									</div>
 								</form>
@@ -89,9 +87,9 @@
 						</div>
 					</div>
 				</article>
-				<!-- /Article -->
 			</div>
-		</div>	<!-- /container -->
+		</div>
+		<!-- footer -->
 		<footer id="footer" class="top-space">
 			<div class="footer1">
 				<div class="container">
@@ -120,7 +118,7 @@
 								<p>Loïc de l'AvatarsTeam  </p>
 							</div>
 						</div>
-					</div> <!-- /row of widgets -->
+					</div>
 				</div>
 			</div>
 			<div class="footer2">
@@ -139,11 +137,11 @@
 								<p class="text-right">Copyright &copy; 2018  Designed by The Avatars team</p>
 							</div>
 						</div>
-					</div> <!-- /row of widgets -->
+					</div>
 				</div>
 			</div>
 		</footer>
-		<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+	<!-- JavaScript bibliothèques placés en bas pour chargement plus rapide -->
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 		<script src="../assets/js/headroom.min.js"></script>

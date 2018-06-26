@@ -1,3 +1,4 @@
+  	<!-- Connexion bdd, script et headers -->
 <?php
   session_start();
   include("../php/db_connect.inc.php");
@@ -5,6 +6,7 @@
   include("../php/header.php");
 ?>
 
+  	<!-- liens vers feuilles de style, ressources...-->
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -18,12 +20,11 @@
   	<link rel="stylesheet" href="../assets/css/bootstrap-theme.css" media="screen">
   	<link rel="stylesheet" href="../assets/css/main.css">
   </head>
+<!-- Header -->
   <body>
-  	<!-- Fixed navbar -->
   	<div class="navbar navbar-inverse navbar-fixed-top headroom">
   		<div class="container">
   			<div class="navbar-header">
-  				<!-- Button for smallest screens -->
   				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
   				<a class="navbar-brand" href="./index.php"><img src="../assets/images/logo.png" width="25%" alt="Cody HTML5 template"></a>
   			</div>
@@ -33,29 +34,28 @@
   					<li class="active"><a href="about.php">En savoir plus sur Cody</a></li>
   					<?php entete($_SESSION["MODE"]);?>
   				</ul>
-  			</div><!--/.nav-collapse -->
+  			</div>
   		</div>
   	</div>
-  	<!-- /.navbar -->
-  	<header id="head" class="secondary"></header>
-  	<!-- container -->
+	  <header id="head" class="secondary"></header>
+	<!-- chemin pages -->
   	<div class="container">
   		<ol class="breadcrumb">
         <li><a href="./index.php">Accueil</a></li>
         <li class="active">En savoir plus sur Cody</li>
-  		</ol>
+		  </ol>
+	<!-- blocs central -->
   		<div class="row">
-  			<!-- Article main content -->
   			<article class="col-sm-8 maincontent">
   				<header class="page-header">
   					<h1 class="page-title">Quelques mots sur l'assistant virtuel Cody</h1>
   				</header>
   				<h3><b>Un besoin, une solution</b></h3>
-  				<p><img src="../assets/images/mac.jpg" alt="mac" class="img-rounded pull-right" id="imgAbout" width="300">Imaginé par les analystes programmeurs de la CodingFactory byItescia, l'assistant virtuel Cody répond à un besoin d'abord identifié par ces mêmes codeurs et ensuite confirmé par les élèves, les intervenants et l'équipe pédagogique d'Itescia.</p>
+  				<p><img src="../assets/images/mac.jpg" alt="mac" class="img-rounded pull-right" id="imgAbout" width="300">Imaginé par les analystes programmeurs de la CodingFactory by ITESCIA, l'assistant virtuel Cody répond à un besoin d'abord identifié par ces mêmes codeurs et ensuite confirmé par les élèves, les intervenants et l'équipe pédagogique d'ITESCIA.</p>
   				<h3><b>L'accès aux notes pour les élèves</b></h3>
   				<p>Point d'intérêt principal pour les élèves, les notes sont maintenant disponibles facilement. Il suffit de se connecter pour connaitre toutes les notes, les appréciations et les moyennes.<br><br>
-  				Fonctionnalités à venir : L'accès au planning des cours, au planning des labdays, à la liste des projets de la coding, le statut en temps réel de la certification, l'outil de création des groupes de travail.
-          Autant de fonctionnalités qui vont changer la vie des élèves de la CodingFactory, et pourquoi les autres écoles de la CCI.</p>
+  				Fonctionnalités à venir : L'accès au planning des cours, au planning des labdays, à la liste des projets de la coding, le statut en temps réel de la certification, l'outil de création des groupes de travail... Et bien d'autres !
+          Autant de fonctionnalités qui vont changer la vie des élèves de la CodingFactory, et pourquoi d'autres écoles.</p>
   				<h3><b>Une gestion des notes facile pour les intervenants</b></h3>
   				<p>L'ajout des notes est maintenant simple et rapide, que ce soit par élèves ou par groupe d'élèves, l'intervenant n'a qu'à se connecter et choisir pour qui il veut entrer ou modifier des notes. <br><br>
           Fonctionnalités à venir : l'enseignant sera notifié pour rapidement entrer les notes d'un cours récemment donné.
@@ -65,9 +65,9 @@
   				Fonctionnalités à venir : la gestion des plannings, la notification d'absences, la notification d'ajout de nouveaux documents téléchargés par les élèves...</p>
   				<p><b>Cody pourra être disponible pour d'autres écoles avec toutes ses fonctionnalités innovantes et bien d'autres à venir !</b></p>
   			</article>
-  			<!-- /Article -->
   		</div>
-  	</div>	<!-- /container -->
+	  </div>
+	<!-- footer -->
   	<footer id="footer" class="top-space">
   		<div class="footer1">
   			<div class="container">
@@ -80,7 +80,7 @@
   								<a href="mailto:#">loic.mauvoisin@edu.itescia.fr</a></br>
   							</br>
   							    TheAvatarsTeam</br>
-  								CodingFactorybyItescia</br>
+  								CodingFactorybyITESCIA</br>
   								35 Boulevard du port</br>
   								Cergy-Pontoise</br>
   								95000</br>
@@ -91,12 +91,12 @@
   					<div class="col-md-6 widget">
   						<h3 class="widget-title">Pourquoi Cody ?</h3>
   						<div class="widget-body">
-  							<p>Notre année à la CodingFactory by Itescia se termine sur un projet à rendre en équipe. Sarah, Nicolas et moi-même avons décidé d'améliorer le quotidien des acteurs de notre école.</p>
+  							<p>Notre année à la CodingFactory by ITESCIA se termine sur un projet à rendre en équipe. Sarah, Nicolas et moi-même avons décidé d'améliorer le quotidien des acteurs de notre école.</p>
   							<p>C'est pour cela que nous avons eu l'idée de créer Cody, un assistant virtuel qui faciliterait la vie et le travail de tous.</p>
   							<p>Loïc de l'AvatarsTeam  </p>
   						</div>
   					</div>
-  				</div> <!-- /row of widgets -->
+  				</div>
   			</div>
   		</div>
   		<div class="footer2">
@@ -117,11 +117,12 @@
   							</p>
   						</div>
   					</div>
-  				</div> <!-- /row of widgets -->
+  				</div> 
   			</div>
   		</div>
   	</footer>
-  	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+
+	 <!-- JavaScript bibliothèques placés en bas pour chargement plus rapide -->
   	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
   	<script src="../assets/js/headroom.min.js"></script>

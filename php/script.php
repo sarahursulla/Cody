@@ -110,11 +110,11 @@ function eleve() {
     echo '<table>'; // Affichage du tableau
     echo '<thead><tr>
           <th>Matière</th>
-          <th>Note</th>
+          <th>Note individuelle</th>
           <th>Note de groupe</th>
           <th>Moyenne de la classe</th>
-          <th>Max</th>
-          <th>Min</th>
+          <th>Max de la classe</th>
+          <th>Min de la classe</th>
           <th>Appréciation</th>
           </tr></thead>';
     echo '<tbody>';
@@ -280,7 +280,7 @@ function listing() { // Sélection du bon tableau à rendre
     echo '<thead><tr>
           <th>Nom</th>
           <th>Prénom</th>
-          <th>Note</th>
+          <th>Note individuelle</th>
           <th>Note de groupe</th>
           <th>Appréciation</th>
           <th>Enregistrer les modifications</th>
@@ -332,11 +332,11 @@ function listing() { // Sélection du bon tableau à rendre
     echo '<table>'; // Affichage du tableau
     echo '<thead><tr>
           <th>Matière</th>
-          <th>Note</th>
+          <th>Note individuelle</th>
           <th>Note de groupe</th>
           <th>Moyenne de la classe</th>
-          <th>Max</th>
-          <th>Min</th>
+          <th>Max de la classe</th>
+          <th>Min de la classe</th>
           <th>Appréciation</th>
           <th>Enregistrer les modifications</th>
           <th>Supprimer les notes</th>

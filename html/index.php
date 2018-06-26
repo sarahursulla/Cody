@@ -1,3 +1,4 @@
+  	<!-- Connexion bdd, script et headers -->
 <?php
   session_start();
   include("../php/db_connect.inc.php");
@@ -8,6 +9,7 @@
   }
 ?>
 
+  	<!-- liens vers feuilles de style, ressources...-->
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -21,8 +23,8 @@
   	<link rel="stylesheet" href="../assets/css/bootstrap-theme.css" media="screen">
   	<link rel="stylesheet" href="../assets/css/main.css">
   </head>
+    	<!-- Header -->
   <body class="home">
-  	<!-- Fixed navbar -->
   	<div class="navbar navbar-inverse navbar-fixed-top headroom">
   		<div class="container">
   			<div class="navbar-header">
@@ -35,80 +37,59 @@
   					<li><a href="./about.php">En savoir plus sur Cody</a></li>
   					<?php entete($_SESSION["MODE"]);?>
   				</ul>
-  			</div><!--/.nav-collapse -->
+  			</div>
   		</div>
   	</div>
-  	<!-- /.navbar -->
-  	<!-- Header -->
   	<header id="head">
   		<div class="container">
   			<div class="row">
   			</div>
   		</div>
   	</header>
-  	<!-- /Header -->
-  	<!-- Intro -->
+  	<!-- punchline1 -->
   	<div class="container text-center">
   		<br><br>
-  		<h2 class="thin">Cody, l'outil indispensable</h2>
-  		<p class="text-muted">Facilitez-vous la vie grâce à Cody, un outil conçu par les analystes programmeurs d'Itescia.</p>
+  		<h2 class="thin">Cody, l'outil indispensable de la Coding Factory by ITESCIA</h2>
   	</div>
-  	<!-- /Intro-->
-  	<!-- Highlights - jumbotron -->
+  	<!-- blocs descriptions -->
   	<div class="jumbotron top-space">
   		<div class="container">
-  			<h3 class="text-center thin">Fonctionnalités à venir </h3>
+  			<h3 class="text-center thin">Que propose Cody, assistant virtuel ? </h3>
   			<div class="row">
   				<div class="col-md-3 col-sm-6 highlight">
   					<div class="h-caption"><h4><i class="fa fa-pencil"></i>Elèves</h4></div>
   					<div class="h-body text-center">
-  						<p>Consultation des notes, planning des cours, planning des labdays, projets de la coding. Statut de la certification. Création des groupes de travail.</p>
+  						<p>Chaque éléve de la Coding Factory peut consulter ses notes et sa moyenne générale.</p>
   					</div>
   				</div>
   				<div class="col-md-3 col-sm-6 highlight">
   					<div class="h-caption"><h4><i class="fa fa-paste"></i>Intervenants</h4></div>
   					<div class="h-body text-center">
-  						<p>Gestion des notes par élèves ou par groupes, Création users stories, notifications si l'Intervenant oubli de rentrer les notes. </p>
+  						<p>Chaque intervenant peut consultater et gérer les notes de leurs élèves et groupes. </p>
   					</div>
   				</div>
   				<div class="col-md-3 col-sm-6 highlight">
   					<div class="h-caption"><h4><i class="fa fa-cogs"></i></i>Equipe pédagogique</h4></div>
   					<div class="h-body text-center">
-  						<p>Gestion des plannings, notification de nouvelles notes, notifications d'absences, notifications de nouveaux documents téléchargés...</p>
+  						<p>L'équipe pédagogique peut consulter et gérer les notes par élèves ou par groupes pour toutes les matières.</p>
   					</div>
   				</div>
   				<div class="col-md-3 col-sm-6 highlight">
-  					<div class="h-caption"><h4><i class="fa fa-home"></i>Ecoles de la CCI</h4></div>
+  					<div class="h-caption"><h4><i class="fa fa-home"></i>ITESCIA</h4></div>
   					<div class="h-body text-center">
-  						<p>Cette solution ergonomique sera proposée aux autres écoles de la CCI</p>
+  						<p>Bientôt disponible pour tous les poles ITESCIA et les prochaines écoles de la CCI</p>
   					</div>
   				</div>
-  			</div> <!-- /row  -->
-  		</div>
-  	</div>
-  	<!-- /Highlights -->
-  	<!-- container -->
-  	<div class="container">
-  		<h2 class="text-center top-space">Cody vous rendra la vie facile !</h2>
-  		<h3 class="text-center top-space">grâce aux nombreuses fonctionnalités bientôt disponibles.</h3>
-  		</div> <!-- /row -->
-    </div>	<!-- /container -->
-  	<!-- Social links. @TODO: replace by link/instructions in template -->
-  	<section id="social">
-  		<div class="container">
-  			<div class="wrapper clearfix">
-  				<!-- AddThis Button BEGIN -->
-  				<div class="addthis_toolbox addthis_default_style">
-  				<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-  				<a class="addthis_button_tweet"></a>
-  				<a class="addthis_button_linkedin_counter"></a>
-  				<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-  				</div>
-  				<!-- AddThis Button END -->
   			</div>
   		</div>
-  	</section>
-  	<!-- /social links -->
+  	</div>
+  	<!-- punchline2 -->
+  	<div class="container">
+  		<h2 class="text-center top-space">Cody rend le travail de tous plus simple !</h2>
+  		<h3 class="text-center top-space">Et il deviendra indispensable grâce aux nombreuses fonctionnalités qui seront bientôt disponibles.</h3>
+  		</div> 
+    </div>
+  	<!-- footer -->
   	<footer id="footer" class="top-space">
   		<div class="footer1">
   			<div class="container">
@@ -137,7 +118,7 @@
   							<p>Loïc de l'AvatarsTeam  </p>
   						</div>
   					</div>
-  				</div> <!-- /row of widgets -->
+  				</div>
   			</div>
   		</div>
   		<div class="footer2">
@@ -158,11 +139,13 @@
   							</p>
   						</div>
   					</div>
-  				</div> <!-- /row of widgets -->
+  				</div>
   			</div>
   		</div>
-  	</footer>
-  	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+	  </footer>
+	  
+
+  	<!-- JavaScript bibliothèques placés en bas pour chargement plus rapide -->
   	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
   	<script src="../assets/js/headroom.min.js"></script>

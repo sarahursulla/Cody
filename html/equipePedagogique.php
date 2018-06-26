@@ -5,6 +5,7 @@
   include("../php/script.php");
 ?>
 
+  	<!-- liens vers feuilles de style, ressources...-->
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -20,12 +21,11 @@
   	<link rel="stylesheet" href="../assets/css/bootstrap-theme.css" media="screen">
   	<link rel="stylesheet" href="../assets/css/main.css">
   </head>
+  <!-- Header -->
   <body>
-  	<!-- Fixed navbar -->
   	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
   		<div class="container">
   			<div class="navbar-header">
-  				<!-- Button for smallest screens -->
   				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
   				<a class="navbar-brand" href="./index.php"><img src="../assets/images/logo.png" width="25%" alt="Cody HTML5 template"></a>
   			</div>
@@ -35,17 +35,17 @@
   					<li class="active"><a href="about.php">En savoir plus sur Cody</a></li>
   					<li><a class="btn" href="../php/logout.php">DÉCONNEXION</a></li>
   				</ul>
-  			</div><!--/.nav-collapse -->
+  			</div>
   		</div>
   	</div>
-  	<!-- /.navbar -->
-  	<!-- data table -->
-  	 <section id="head" class="secondary"></section>
+	<section id="head" class="secondary"></section>
+	<!-- chemin pages -->
   	 <div class="container">
      <ol class="breadcrumb">
        <li><a href="./index.php">Accueil</a></li>
        <li class="active">Espace personnel</li>
-      </ol>
+	  </ol>
+	<!-- espace personnel -->
     </div>
   	<div id="mainContent">
   	<?php equipePedagogique();?>
@@ -79,7 +79,7 @@
   							<p>Loïc de l'AvatarsTeam  </p>
   						</div>
   					</div>
-  				</div> <!-- /row of widgets -->
+  				</div>
   			</div>
   		</div>
   		<div class="footer2">
@@ -100,12 +100,12 @@
   							</p>
   						</div>
   					</div>
-  				</div> <!-- /row of widgets -->
+  				</div>
   			</div>
   		</div>
   	</footer>
-  	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
-  	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<!-- JavaScript bibliothèques placés en bas pour chargement plus rapide -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
   	<script src="../assets/js/headroom.min.js"></script>
   	<script src="../assets/js/jQuery.headroom.min.js"></script>
