@@ -4,25 +4,25 @@
 //==============================================================================
 if (isset($_POST["login"])) {
   if (empty($_POST["email"]) || empty($_POST["password"])) {
-    // VEUILLEZ RENTRER VOS IDENTIFIANTS
+    // ERREUR : VEUILLEZ RENTRER VOS IDENTIFIANTS
   }else {
     $db = db_connect();
     $req = $db->prepare("SELECT * FROM Eleves WHERE email = :email");
     $req->execute(array("email" => $_POST["email"]));
     if ($data = $req->fetch()) { // Élève ?
-      MDP("ID_eleve", 4, 1, $data, $_POST);
+      MDP("ID_eleve", 1, 4, $data, $_POST);
     }else {
       $req = $db->prepare("SELECT * FROM Intervenants WHERE email = :email");
       $req->execute(array("email" => $_POST["email"]));
       if ($data = $req->fetch()) { // Intervenant ?
-        MDP("ID_intervenant", 5, 2, $data, $_POST);
+        MDP("ID_intervenant", 2, 5, $data, $_POST);
       }else {
         $req = $db->prepare("SELECT * FROM EquipePedagogique WHERE email = :email");
         $req->execute(array("email" => $_POST["email"]));
         if ($data = $req->fetch()) { // Équipe pédagogique ?
-          MDP("ID_membre", 6, 3, $data, $_POST);
+          MDP("ID_membre", 3, 6, $data, $_POST);
         }else {
-          // LOGIN INCORRECT
+          // ERREUR : LOGIN INCORRECT
         }
       }
       $db = null;
@@ -30,20 +30,21 @@ if (isset($_POST["login"])) {
   }
 }
 
-function MDP($id, $mode2, $mode, $data, $post) {
-  $position = strpos($data["password"], "@");
-  if ($position === 0 && $post["password"] == $data["password"]) {
+function MDP($id, $mode, $mode2, $data, $post) {
+  $isPasswordCorrect = password_verify($post["password"], $data["password"]);
+  if ($isPasswordCorrect) {
     $_SESSION["ID"] = $data[$id];
     $_SESSION["PRENOM"] = $data["prenom"];
-    $_SESSION["MODE"] = $mode2;
-    header("Location:../html/changePassword.php");
-  }else {
-    $isPasswordCorrect = password_verify($post["password"], $data["password"]);
-    if ($isPasswordCorrect) {
-      $_SESSION["ID"] = $data[$id];
-      $_SESSION["PRENOM"] = $data["prenom"];
-      $_SESSION["MODE"] = $mode;
-      header("Location:../html/equipePedagogique.php");
+    $position = strpos($post["password"], "@");
+    if ($position === 0) {
+      $_SESSION["MODE"] = $mode2;
+      header("Location:../html/changePassword.php");
+    }else {
+      $isPasswordCorrect = password_verify($post["password"], $data["password"]);
+      if ($isPasswordCorrect) {
+        $_SESSION["MODE"] = $mode;
+        header("Location:../html/equipePedagogique.php");
+      }
     }
   }
 }
@@ -371,17 +372,14 @@ if (isset($_POST["changermdp"])) {
     case 4: // Élèves
       $table = "Eleves";
       $idtable = "ID_eleve";
-      $_SESSION["MODE"] = 1;
       break;
     case 5: // Intervenants
       $table = "Intervenants";
       $idtable = "ID_intervenant";
-      $_SESSION["MODE"] = 2;
       break;
     case 6: // Équipe pédagogique
       $table = "EquipePedagogique";
       $idtable = "ID_membre";
-      $_SESSION["MODE"] = 3;
       break;
   }
   $hache = password_hash($_POST["pass1"], PASSWORD_DEFAULT); // Hachage du mot de passe
@@ -391,13 +389,16 @@ if (isset($_POST["changermdp"])) {
     $req->execute(array("password" => $hache, "idtable2" => $_SESSION["ID"]));
     $db = null;
     switch ($_SESSION["MODE"]) {
-      case 1:
+      case 4:
+        $_SESSION["MODE"] = 1;
         header("Location:../html/eleves.php");
         break;
-      case 2:
+      case 5:
+        $_SESSION["MODE"] = 2;
         header("Location:../html/intervenants.php");
         break;
-      case 3:
+      case 6:
+        $_SESSION["MODE"] = 3;
         header("Location:../html/equipePedagogique.php");
         break;
     }
@@ -406,7 +407,7 @@ if (isset($_POST["changermdp"])) {
 }
 
 //==============================================================================
-// 
+//
 //==============================================================================
 function getQueryParams() {
   $params = array();
