@@ -7,3 +7,4 @@ function loader($class) {
 }
 spl_autoload_register("loader");
 ?>
+<!-- Lance les fonctions en file d'appel
